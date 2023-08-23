@@ -6,6 +6,7 @@
     --color2: #80f29159;
     --color3: #F2F2F2;
     --color4: #0D0D0D;
+    --color5: #000000bd;
 }
 
 * {
@@ -39,8 +40,7 @@ section#login-container {
 }
 
 .imagem {
-    display: flex;
-    flex-direction: column;
+    position: relative;
     background-image: linear-gradient(var(--color1), var(--color2)), url('../images/2853458.jpg');
     background-position: center center;
     background-repeat: no-repeat;
@@ -49,6 +49,7 @@ section#login-container {
     border-radius: 10px 10px 0px 0px;
 }
 
+
 section > .container {
     background-color: white;
     height: 350px;
@@ -56,7 +57,42 @@ section > .container {
     border-radius: 0px 0px 10px 10px;
 }
 
-.imagem-description h2, .imagem-description p {
+.imagem-description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
     text-align: center;
-    
+    color: white;
+    text-shadow: 2px 2px 4px var(--color5);
+}
+
+div.container > h2 {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+div.container > form > input {
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
+div.container > form > a.container-botao {
+    cursor: pointer;
+    height: 50px;
+    width: 100px;
+    border: 1px solid black;
+}
+
+div.container > p.container-new {
+    text-align: center;
+}
+
+div.container > form > input.container-botao {
+    border-radius: 10px;
+    margin: auto;
+    height: 35px;
+    width: 200px;
 }
