@@ -4,8 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="estilos/style.css">
 </head>
 <body>
-    
+    <main>
+        <section id="login-container">
+            <div class="imagem">
+                <div class="imagem-description">
+                    <h2>Welcome back!</h2>
+                    <p>You can sign in to access with your existing account.</p>
+                </div>
+            </div>
+
+            <div class="container">
+                <h2>Sign In</h2>
+                <form action="" method="post">
+                    <label for="input-user"></label>
+                    <input type="text" name="input-user" id="input-user" placeholder="Username or email" required>
+
+                    <label for="input-password"></label>
+                    <input type="password" name="input-password" id="input-password" placeholder="Password">
+
+                    
+                    <input type="checkbox" name="input-remember" id="input-remember">
+                    <label for="input-remember">Remember-me</label>
+
+                    <a href="#">Forget password?</a>
+
+                    <a href="#">Sing In</a>
+                </form>
+
+                
+
+                <p>New here? <a href="tela-novo-cadastro.html">Create an Account</a></p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

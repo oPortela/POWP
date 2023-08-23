@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+:root {
+    --color0: #01400B;
+    --color1: #4ed96365;
+    --color2: #80f29159;
+    --color3: #F2F2F2;
+    --color4: #0D0D0D;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('../images/bg1.jpg');
+}
+
+main {
+    position: relative;
+    height: 100vh;  
+    width: 100vw;
+}
+
+section#login-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    background-color: white;
+    width: 250px;
+    height: 700px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.450);
+
+    transform: translate(-50%, -50%);
+}
+
+.imagem {
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(var(--color1), var(--color2)), url('../images/2853458.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 350px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+section > .container {
+    background-color: white;
+    height: 350px;
+    width: 250px;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.imagem-description h2, .imagem-description p {
+    text-align: center;
+    
+}
