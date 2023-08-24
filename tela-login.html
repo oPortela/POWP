@@ -19,12 +19,12 @@
 
             <div class="container">
                 <h2>Sign In</h2>
-                <form action="#" method="post">
+                <form action="#" method="post" autocomplete="on">
                     <label for="input-user"></label>
                     <input type="text" name="input-user" id="input-user" placeholder="Username or email" required>
                     <br>
                     <label for="input-password"></label>
-                    <input type="password" name="input-password" id="input-password" placeholder="Password">
+                    <input type="password" name="input-password" id="input-password" placeholder="Password" minlength="8" >
                     <br>
                     <input type="checkbox" name="input-remember" id="input-remember">
                     <label for="input-remember">Remember-me</label>
@@ -40,5 +40,7 @@
             </div>
         </section>
     </main>
+
+    <script src="script/login.js"></script>
 </body>
 </html>
