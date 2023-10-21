@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="estilos/style.css">
+</head>
+<body>
+    <main>
+        <img src="images/logo.png" alt="logo-png">
+        <section id="login-container">
+            <div class="imagem">
+                <div class="imagem-description">
+                    <h2>Welcome back!</h2>
+                    <p>You can sign in to access with your existing account.</p>
+                </div>
+            </div>
+
+            <div class="container">
+                <h2>Sign In</h2>
+                <form action="#" method="post" autocomplete="on">
+                    <label for="input-user"></label>
+                    <input type="text" name="input-user" id="input-user" placeholder="Username or email" required>
+                    <br>
+                    <label for="input-password"></label>
+                    <input type="password" name="input-password" id="input-password" placeholder="Password" minlength="8" >
+                    <br>
+                    <input type="checkbox" name="input-remember" id="input-remember">
+                    <label for="input-remember">Remember-me</label>
+
+                    <a href="#">Forget password?</a>
+
+                    <input type="submit" class="container-botao" value="Sing In">
+                </form>
+
+                
+
+                <p class="container-new">New here? <a href="tela-novo-cadastro.html">Create an Account</a></p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script/login.js"></script>
+</body>
+</html>
