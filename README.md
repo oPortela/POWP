@@ -8,10 +8,10 @@ Bem-vindo ao mundo do POWP ERP Online Modular - a solução revolucionária que 
 ##Criadores:
 
 Matheus Marques Portela<br>
-João Luccas Marques
-Marcos Paulo Moreira Damascena
-Victor Manuel de Moraes
-Victo Duarte Madaleno
-Pedro Echebarria
-Rebeca Barvosa Ferreira
-Igor Alexander Ribeiro de Paulo
+João Luccas Marques<br>
+Marcos Paulo Moreira Damascena<br>
+Victor Manuel de Moraes<br>
+Victo Duarte Madaleno<br>
+Pedro Echebarria<br>
+Rebeca Barvosa Ferreira<br>
+Igor Alexander Ribeiro de Paulo<br>
