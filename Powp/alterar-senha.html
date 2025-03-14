@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alteração de Senha</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .senha-match {
+            font-size: 12px;
+            margin-top: 5px;
+            color: #777;
+        }
+        
+        .match-error {
+            color: #ff4d4d;
+        }
+        
+        .match-success {
+            color: #47d147;
+        }
+        
+        .voltar-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #555;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .voltar-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-form">
+            <h1>Alteração de Senha</h1>
+            <form id="form-alterar-senha">
+                <div class="input-group">
+                    <label for="usuario">Usuário</label>
+                    <input type="text" id="usuario" name="usuario" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="senha-atual">Senha Atual</label>
+                    <input type="password" id="senha-atual" name="senha-atual" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="nova-senha">Nova Senha</label>
+                    <input type="password" id="nova-senha" name="nova-senha" required oninput="verificarForcaSenha(); verificarSenhasIguais()">
+                    <div class="forca-senha">
+                        <div class="barra-forca">
+                            <div id="indicador-forca"></div>
+                        </div>
+                        <span id="texto-forca">Força da senha</span>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="confirmar-senha">Confirmar Nova Senha</label>
+                    <input type="password" id="confirmar-senha" name="confirmar-senha" required oninput="verificarSenhasIguais()">
+                    <div class="senha-match" id="senha-match-msg"></div>
+                </div>
+                
+                <button type="submit" class="btn-entrar" id="btn-alterar">Alterar Senha</button>
+                
+                <a href="login.html" class="voltar-link">Voltar para o login</a>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function verificarForcaSenha() {
+            const senha = document.getElementById('nova-senha').value;
+            const indicador = document.getElementById('indicador-forca');
+            const textoForca = document.getElementById('texto-forca');
+            
+            // Critérios de força
+            const comprimento = senha.length;
+            const temNumeros = /[0-9]/.test(senha);
+            const temMinusculas = /[a-z]/.test(senha);
+            const temMaiusculas = /[A-Z]/.test(senha);
+            const temEspeciais = /[^A-Za-z0-9]/.test(senha);
+            
+            let forca = 0;
+            
+            if (comprimento > 7) forca += 1;
+            if (comprimento > 10) forca += 1;
+            if (temNumeros) forca += 1;
+            if (temMinusculas) forca += 1;
+            if (temMaiusculas) forca += 1;
+            if (temEspeciais) forca += 1;
+            
+            // Definir a largura e cor do indicador
+            let largura = '0%';
+            let cor = '#ddd';
+            let texto = 'Sem senha';
+            
+            if (senha.length > 0) {
+                if (forca <= 2) {
+                    largura = '33%';
+                    cor = '#ff4d4d';
+                    texto = 'Fraca';
+                } else if (forca <= 4) {
+                    largura = '66%';
+                    cor = '#ffd633';
+                    texto = 'Média';
+                } else {
+                    largura = '100%';
+                    cor = '#47d147';
+                    texto = 'Forte';
+                }
+            }
+            
+            indicador.style.width = largura;
+            indicador.style.backgroundColor = cor;
+            textoForca.textContent = texto;
+        }
+        
+        function verificarSenhasIguais() {
+            const novaSenha = document.getElementById('nova-senha').value;
+            const confirmarSenha = document.getElementById('confirmar-senha').value;
+            const mensagem = document.getElementById('senha-match-msg');
+            const btnAlterar = document.getElementById('btn-alterar');
+            
+            if (confirmarSenha.length === 0) {
+                mensagem.textContent = '';
+                mensagem.className = 'senha-match';
+                btnAlterar.disabled = false;
+            } else if (novaSenha === confirmarSenha) {
+                mensagem.textContent = 'As senhas coincidem';
+                mensagem.className = 'senha-match match-success';
+                btnAlterar.disabled = false;
+            } else {
+                mensagem.textContent = 'As senhas não coincidem';
+                mensagem.className = 'senha-match match-error';
+                btnAlterar.disabled = true;
+            }
+        }
+        
+        document.getElementById('form-alterar-senha').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const usuario = document.getElementById('usuario').value;
+            const senhaAtual = document.getElementById('senha-atual').value;
+            const novaSenha = document.getElementById('nova-senha').value;
+            const confirmarSenha = document.getElementById('confirmar-senha').value;
+            
+            if (novaSenha !== confirmarSenha) {
+                alert('As senhas não coincidem. Por favor, verifique.');
+                return;
+            }
+            
+            // Aqui você adicionaria o código para enviar os dados para o servidor
+            alert('Senha alterada com sucesso!');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

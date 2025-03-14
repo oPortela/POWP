@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-body">
+    <div class="sidebar">
+        <div class="user-profile">
+            <div class="avatar">
+                <svg viewBox="0 0 24 24" fill="white" width="32" height="32">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                </svg>
+            </div>
+        </div>
+        <nav class="menu">
+            <a href="#" class="menu-item active">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path>
+                </svg>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path>
+                </svg>
+                <span>Cadastro</span>
+            </a>
+            <a href="#" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"></path>
+                </svg>
+                <span>Financeiro</span>
+            </a>
+            <a href="#" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h2v8l2.5-1.5L13 12V4h5v16z"></path>
+                </svg>
+                <span>Estoque</span>
+            </a>
+            <a href="#" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
+                </svg>
+                <span>Vendas</span>
+            </a>
+            <a href="#" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"></path>
+                </svg>
+                <span>Arquivos</span>
+            </a>
+        </nav>
+        <div class="bottom-menu">
+            <a href="#" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"></path>
+                </svg>
+                <span>Configurações</span>
+            </a>
+            <a href="index.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"></path>
+                </svg>
+                <span>Sair</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="tabs">
+                <button class="tab active">Painel de vendas</button>
+                <button class="tab">Painel Financeiro</button>
+            </div>
+            <div class="date-selector">
+                <select id="date-filter">
+                    <option selected>Hoje</option>
+                    <option>Ontem</option>
+                    <option>Últimos 7 dias</option>
+                    <option>Últimos 30 dias</option>
+                    <option>Este mês</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="dashboard-cards">
+            <div class="card">
+                <div class="card-content">
+                    <h3>Qtd. vendas de hoje</h3>
+                    <div class="card-value">42</div>
+                </div>
+                <div class="card-icon yellow">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <h3>Valor vendas de hoje</h3>
+                    <div class="card-value">R$ 9.356,23</div>
+                </div>
+                <div class="card-icon green">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <h3>Clientes ativos</h3>
+                    <div class="card-value">744</div>
+                </div>
+                <div class="card-icon blue">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <h3>Ticket médio</h3>
+                    <div class="card-value">R$ 820,00</div>
+                </div>
+                <div class="card-icon red">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-row">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Comparativos de vendas</h3>
+                    <select id="chart-filter">
+                        <option selected>Hoje</option>
+                        <option>Últimos 7 dias</option>
+                        <option>Últimos 30 dias</option>
+                    </select>
+                </div>
+                <canvas id="salesChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Vendas por produtos</h3>
+                    <select id="product-filter">
+                        <option selected>Últimos 30 dias</option>
+                        <option>Este mês</option>
+                        <option>Último mês</option>
+                    </select>
+                </div>
+                <div class="donut-chart-container">
+                    <canvas id="productsChart"></canvas>
+                    <div class="donut-center">1400 itens</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-row">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Comparativos de vendas</h3>
+                    <select id="bar-chart-filter">
+                        <option selected>Últimos 7 dias</option>
+                        <option>Últimos 14 dias</option>
+                        <option>Últimos 30 dias</option>
+                    </select>
+                </div>
+                <canvas id="barChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Meio de Pagamento</h3>
+                    <select id="payment-filter">
+                        <option selected>Últimos 7 dias</option>
+                        <option>Este mês</option>
+                        <option>Último mês</option>
+                    </select>
+                </div>
+                <div class="donut-chart-container">
+                    <canvas id="paymentChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuração do gráfico de linha
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(salesCtx, {
+            type: 'line',
+            data: {
+                labels: ['8 de jul.', '9 de jul.', '10 de jul.', '11 de jul.'],
+                datasets: [{
+                    label: 'Vendas',
+                    data: [10000, 5000, 20000, 15000, 5000, 25000],
+                    borderColor: '#8e44ad',
+                    backgroundColor: 'rgba(142, 68, 173, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString() + ' mil';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Configuração do gráfico de produtos
+        const productsCtx = document.getElementById('productsChart').getContext('2d');
+        const productsChart = new Chart(productsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Placa Mãe B450-M', 'SSD 240gb Kingston', 'Caneta Bic Azul', 'Papel Chamex', 'Beb. 51 ICE'],
+                datasets: [{
+                    data: [25, 20, 15, 20, 20],
+                    backgroundColor: [
+                        '#f39c12',
+                        '#e74c3c',
+                        '#3498db',
+                        '#9b59b6',
+                        '#8b0000'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            boxWidth: 12,
+                            padding: 15
+                        }
+                    }
+                }
+            }
+        });
+
+        // Configuração do gráfico de barras
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        const barChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['06/11', '07/11', '08/11', '09/11', '10/11', '11/11', '13/11'],
+                datasets: [{
+                    label: 'Qtd. vendas',
+                    data: [50, 70, 90, 50, 30, 80, 85],
+                    backgroundColor: [
+                        '#2ecc71',
+                        '#f39c12',
+                        '#9b59b6',
+                        '#f1c40f',
+                        '#8b0000',
+                        '#27ae60',
+                        '#8e44ad'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }
+                }
+            }
+        });
+
+        // Configuração do gráfico de pagamentos
+        const paymentCtx = document.getElementById('paymentChart').getContext('2d');
+        const paymentChart = new Chart(paymentCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Cartão Crédito', 'Cartão de Débito', 'Dinheiro', 'PIX', 'Boleto'],
+                datasets: [{
+                    data: [35, 25, 15, 15, 10],
+                    backgroundColor: [
+                        '#2ecc71',
+                        '#f1c40f',
+                        '#3498db',
+                        '#9b59b6',
+                        '#e74c3c'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            boxWidth: 12,
+                            padding: 15
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

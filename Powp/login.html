@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">http://127.0.0.1:3000/dashboard.html#
+        <div class="login-form">
+            <h1>Login</h1>
+            <form id="form-login">
+                <div class="input-group">
+                    <label for="usuario">Usuário</label>
+                    <input type="text" id="usuario" name="usuario" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" required oninput="verificarForcaSenha()">
+                    <div class="forca-senha">
+                        <div class="barra-forca">
+                            <div id="indicador-forca"></div>
+                        </div>
+                        <span id="texto-forca">Força da senha</span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-entrar">Entrar</button>
+                
+                <div class="links">
+                    <a href="alterar-senha.html" class="link-esqueci">Esqueci minha senha</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function verificarForcaSenha() {
+            const senha = document.getElementById('senha').value;
+            const indicador = document.getElementById('indicador-forca');
+            const textoForca = document.getElementById('texto-forca');
+            
+            // Critérios de força
+            const comprimento = senha.length;
+            const temNumeros = /[0-9]/.test(senha);
+            const temMinusculas = /[a-z]/.test(senha);
+            const temMaiusculas = /[A-Z]/.test(senha);
+            const temEspeciais = /[^A-Za-z0-9]/.test(senha);
+            
+            let forca = 0;
+            
+            if (comprimento > 7) forca += 1;
+            if (comprimento > 10) forca += 1;
+            if (temNumeros) forca += 1;
+            if (temMinusculas) forca += 1;
+            if (temMaiusculas) forca += 1;
+            if (temEspeciais) forca += 1;
+            
+            // Definir a largura e cor do indicador
+            let largura = '0%';
+            let cor = '#ddd';
+            let texto = 'Sem senha';
+            
+            if (senha.length > 0) {
+                if (forca <= 2) {
+                    largura = '33%';
+                    cor = '#ff4d4d';
+                    texto = 'Fraca';
+                } else if (forca <= 4) {
+                    largura = '66%';
+                    cor = '#ffd633';
+                    texto = 'Média';
+                } else {
+                    largura = '100%';
+                    cor = '#47d147';
+                    texto = 'Forte';
+                }
+            }
+            
+            indicador.style.width = largura;
+            indicador.style.backgroundColor = cor;
+            textoForca.textContent = texto;
+        }
+
+        document.getElementById('form-login').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const usuario = document.getElementById('usuario').value;
+            const senha = document.getElementById('senha').value;
+            
+            // Aqui você adicionaria o código para validar o login com o servidor
+            // Por enquanto, vamos apenas redirecionar para o dashboard
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+</html>
