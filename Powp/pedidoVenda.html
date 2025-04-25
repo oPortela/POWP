@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Pedidos de Venda</title>
+  <link rel="stylesheet" href="css/venda.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="sidebar-item" data-section="dashboard">
+          <span class="icon">📊</span>
+          <span class="sidebar-text">Dashboard</span>
+        </div>
+        <div class="sidebar-item" data-section="cadastro">
+          <span class="icon">📝</span>
+          <span class="sidebar-text">Cadastro</span>
+        </div>
+        <div class="sidebar-item" data-section="financeiro">
+          <span class="icon">💰</span>
+          <span class="sidebar-text">Financeiro</span>
+        </div>
+        <div class="sidebar-item" data-section="estoque">
+          <span class="icon">📦</span>
+          <span class="sidebar-text">Estoque</span>
+        </div>
+        <div class="sidebar-item active" data-section="vendas">
+          <span class="icon">🛍️</span>
+          <span class="sidebar-text">Vendas</span>
+        </div>
+        <div class="sidebar-item" data-section="arquivos">
+          <span class="icon">📁</span>
+          <span class="sidebar-text">Arquivos</span>
+        </div>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="sidebar-item" data-section="settings">
+          <span class="icon">⚙️</span>
+          <span class="sidebar-text">Configurações</span>
+        </div>
+        <div class="sidebar-item" data-section="help">
+          <span class="icon">❓</span>
+          <span class="sidebar-text">Ajuda</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="header">
+        <h1>Digitar Pedido de Venda</h1>
+        <div class="breadcrumb">
+          <span>Vendas</span>
+          <span>→</span>
+          <span>Pedido de venda</span>
+        </div>
+      </header>
+
+      <div class="order-form">
+        <section class="customer-info">
+          <h2>Dados do cliente</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="orderNumber">Número Pedido</label>
+              <input type="text" id="orderNumber" readonly />
+            </div>
+            <div class="form-group">
+              <label for="customerCode">Cód. Cliente</label>
+              <input type="text" id="customerCode" />
+            </div>
+            <div class="form-group large">
+              <label for="customerName">Cliente</label>
+              <input type="text" id="customerName" />
+            </div>
+            <div class="form-group">
+              <label for="document">CPF/CNPJ</label>
+              <input type="text" id="document" />
+            </div>
+            <div class="form-group">
+              <label for="orderDate">Data Venda</label>
+              <input type="date" id="orderDate" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="seller">Vendedor</label>
+              <select id="seller">
+                <option value="">Selecione...</option>
+                <option value="1">João Silva</option>
+                <option value="2">Maria Santos</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="freight">Frete</label>
+              <select id="freight">
+                <option value="por_conta">Por conta</option>
+                <option value="cif">CIF</option>
+                <option value="fob">FOB</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="carrier">Transportadora</label>
+              <select id="carrier">
+                <option value="">Selecione...</option>
+                <option value="1">Transportadora A</option>
+                <option value="2">Transportadora B</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="freightValue">Valor do frete</label>
+              <input type="number" id="freightValue" step="0.01" value="0.00" />
+            </div>
+            <div class="form-group">
+              <label for="insuranceValue">Valor do Seguro</label>
+              <input type="number" id="insuranceValue" step="0.01" value="0.00" />
+            </div>
+          </div>
+        </section>
+
+        <section class="order-items">
+          <div class="section-header">
+            <h2>Itens do Pedido</h2>
+            <button id="addItem" class="btn btn-primary">
+              <span class="icon">+</span>
+              Adicionar Item
+            </button>
+          </div>
+
+          <div class="table-container">
+            <table class="items-table">
+              <thead>
+                <tr>
+                  <th>Produtos</th>
+                  <th>Quantidade</th>
+                  <th>Vl. Unit</th>
+                  <th>Perd. Desc</th>
+                  <th>Valor Desconto</th>
+                  <th>Valor total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="itemsTableBody">
+                <!-- Items will be added here dynamically -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="form-group">
+            <label for="observations">Observações</label>
+            <textarea id="observations" rows="3"></textarea>
+          </div>
+        </section>
+
+        <div class="order-footer">
+          <section class="payment-info">
+            <h2>Pagamento</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="paymentMethod">Forma de Pagamento</label>
+                <select id="paymentMethod">
+                  <option value="58">58 - Boleto Bancário</option>
+                  <option value="57">57 - Cartão de Crédito</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="paymentTerm">Forma de Pagamento</label>
+                <select id="paymentTerm">
+                  <option value="102">102 - 7/14/21/28 dias</option>
+                  <option value="101">101 - 30/60/90 dias</option>
+                </select>
+              </div>
+            </div>
+
+            <table class="installments-table">
+              <thead>
+                <tr>
+                  <th>Parcela</th>
+                  <th>Vencimento</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody id="installmentsTableBody">
+                <!-- Installments will be added here dynamically -->
+              </tbody>
+            </table>
+          </section>
+
+          <section class="order-summary">
+            <h2>Resumo Pedido</h2>
+            <div class="summary-items">
+              <div class="summary-row">
+                <span>Sub-Total:</span>
+                <span id="subtotal">R$ 3.068,51</span>
+              </div>
+              <div class="summary-row">
+                <span>Desconto (-):</span>
+                <span id="discount">R$ 49,87</span>
+              </div>
+              <div class="summary-row">
+                <span>Outras Despesas (+):</span>
+                <span id="otherExpenses">R$ 0,00</span>
+              </div>
+              <div class="summary-row">
+                <span>Frete/Seguro (+):</span>
+                <span id="freightInsurance">R$ 0,00</span>
+              </div>
+              <div class="summary-row total">
+                <span>Total (=):</span>
+                <span id="total">R$ 3.018,63</span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="backButton">Voltar</button>
+          <button type="button" class="btn btn-primary" id="saveButton">Salvar</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast hidden">
+    <span id="toast-message"></span>
+  </div>
+
+  <script src="js/productsVenda.js"></script>
+  <script src="js/orderVenda.js"></script>
+  <script src="js/mainVenda.js"></script>
+</body>
+</html>
