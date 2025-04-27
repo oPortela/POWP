@@ -92,7 +92,7 @@
         </div>
         <div class="sidebar-item" data-section="help">
           <span class="icon">❓</span>
-          <span class="sidebar-text">Ajuda</span>
+          <span class="sidebar-text">Sair</span>
         </div>
       </div>
     </aside>
@@ -112,7 +112,7 @@
           </button>
           <button class="btn btn-primary" id="new-supplier-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            Novo Fornecedor
+            Novo Cliente
           </button>
         </div>
       </header>
@@ -125,8 +125,8 @@
                 <th class="checkbox-column">
                   <input type="checkbox" id="select-all" />
                 </th>
-                <th class="sortable" data-sort="id">Cod. Fornec</th>
-                <th class="sortable" data-sort="name">Fornecedor</th>
+                <th class="sortable" data-sort="id">Cod. Cliente</th>
+                <th class="sortable" data-sort="name">Cliente</th>
                 <th class="sortable" data-sort="email">E-MAIL</th>
                 <th class="sortable" data-sort="date">Data de cadastro</th>
                 <th>Edit</th>
@@ -146,7 +146,7 @@
   <div class="modal" id="supplier-modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 id="modal-title">Novo Fornecedor</h2>
+        <h2 id="modal-title">Novo Cliente</h2>
         <button class="close-modal">&times;</button>
       </div>
       <div class="modal-body">
@@ -180,7 +180,7 @@
         <button class="close-modal">&times;</button>
       </div>
       <div class="modal-body">
-        <p>Tem certeza que deseja excluir este fornecedor?</p>
+        <p>Tem certeza que deseja excluir este cliente?</p>
         <div class="form-group actions">
           <button type="button" class="btn btn-secondary" id="cancel-delete-btn">Cancelar</button>
           <button type="button" class="btn btn-danger" id="confirm-delete-btn">Excluir</button>

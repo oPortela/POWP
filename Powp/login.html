@@ -24,13 +24,7 @@
                 
                 <div class="input-group">
                     <label for="senha">Senha</label>
-                    <input type="password" id="senha" name="senha" required oninput="verificarForcaSenha()" placeholder="Digite sua senha">
-                    <div class="forca-senha">
-                        <div class="barra-forca">
-                            <div id="indicador-forca"></div>
-                        </div>
-                        <span id="texto-forca">Força da senha</span>
-                    </div>
+                    <input type="password" id="senha" name="senha" required placeholder="Digite sua senha">
                 </div>
                 
                 <button type="submit" class="btn-entrar">Entrar</button>
@@ -43,7 +37,7 @@
     </div>
 
     <script>
-        function verificarForcaSenha() {
+        /*function verificarForcaSenha() {
             const senha = document.getElementById('senha').value;
             const indicador = document.getElementById('indicador-forca');
             const textoForca = document.getElementById('texto-forca');
@@ -88,7 +82,7 @@
             indicador.style.width = largura;
             indicador.style.backgroundColor = cor;
             textoForca.textContent = texto;
-        }
+        }*/
 
         document.getElementById('form-login').addEventListener('submit', function(e) {
             e.preventDefault();

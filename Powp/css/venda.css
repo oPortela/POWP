@@ -1,3 +1,5 @@
+@charset 'UTF-8';
+
 :root {
     --primary-color: #004d40;
     --primary-light: #00796b;
@@ -49,6 +51,23 @@
   }
   
   /* Sidebar Styles */
+.user-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
   .sidebar {
     width: 56px;
     height: 100%;
