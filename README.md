@@ -1,3 +1,7 @@
+# 🌟 Seja bem-vindo ao futuro da gestão empresarial com o POWP ERP!
+
+---
+
 # POWP ERP
 
 **POWP ERP** é uma solução inovadora que impulsiona MEIs, pequenas e médias empresas rumo a novos patamares de **eficiência**, **organização** e **produtividade**.
@@ -15,10 +19,10 @@ Projetado com uma abordagem modular, o POWP permite que cada usuário personaliz
 ---
 
 ## 🛠️ Tecnologias Utilizadas
-- HTML e CSS <img align="center" alt="oPortela-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg"> <img align="center" alt="oPortela-CSS" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg">
-- JavaScript <img align="center" alt="oPortela-Js" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg">
-- PostgreSQL <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" width="40" height="40"/>
-- Python/Django <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" width="40" height="40"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django" width="40" height="40"/>
+- HTML e CSS <img align="center" alt="oPortela-HTML" height="15" width="20" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg"> <img align="center" alt="oPortela-CSS" height="15" width="20" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg">
+- JavaScript <img align="center" alt="oPortela-Js" height="15" width="20" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg">
+- PostgreSQL <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" width="20" height="20"/>
+- Python/Django <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" width="20" height="20"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django" width="20" height="20"/>
 
 ---
 
@@ -89,9 +93,5 @@ Sinta-se livre para abrir issues, enviar pull requests ou sugerir melhorias.
 ## 📄 Licença
 
 Este projeto está licenciado sob a Licença MIT — consulte o arquivo LICENSE para mais detalhes.
-
----
-
-# 🌟 Seja bem-vindo ao futuro da gestão empresarial com o POWP ERP!
 
 ---
