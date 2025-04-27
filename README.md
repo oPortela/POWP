@@ -1,7 +1,5 @@
 # 🌟 Seja bem-vindo ao futuro da gestão empresarial com o POWP ERP!
 
----
-
 # POWP ERP
 
 **POWP ERP** é uma solução inovadora que impulsiona MEIs, pequenas e médias empresas rumo a novos patamares de **eficiência**, **organização** e **produtividade**.
