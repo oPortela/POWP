@@ -1,7 +1,3 @@
-Perfeito! Aqui está uma versão mais completa e **profissional** do seu README para o **POWP ERP**:
-
----
-
 # POWP ERP
 
 **POWP ERP** é uma solução inovadora que impulsiona MEIs, pequenas e médias empresas rumo a novos patamares de **eficiência**, **organização** e **produtividade**.
@@ -19,30 +15,28 @@ Projetado com uma abordagem modular, o POWP permite que cada usuário personaliz
 ---
 
 ## 🛠️ Tecnologias Utilizadas
-- [Tecnologia 1] — (ex: React, Flutter, etc.)
-- [Tecnologia 2] — (ex: Node.js, Django, etc.)
-- [Banco de Dados] — (ex: PostgreSQL, MySQL, Firebase, etc.)
-- [Outros recursos] — (ex: Docker, APIs RESTful, etc.)
-
-*(Se quiser, podemos preencher essa lista juntos, conforme as tecnologias que você está usando!)*
+- HTML e CSS <img align="center" alt="oPortela-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg"> <img align="center" alt="oPortela-CSS" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg">
+- JavaScript <img align="center" alt="oPortela-Js" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg">
+- PostgreSQL <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" width="40" height="40"/>
+- Python/Django <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" width="40" height="40"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django" width="40" height="40"/>
 
 ---
 
 ## 🚀 Instalação e Configuração
 
 **Pré-requisitos**
-- [Exemplo: Node.js v18+ instalado]
-- [Exemplo: Banco de dados configurado]
+- Python 3.10+
+- Banco de dados PostgreSQL configurado
 
 **Passos**
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/powp-erp.git
+   git clone https://github.com/oPortela/powp.git
    ```
 
 2. Acesse o diretório do projeto:
    ```bash
-   cd powp-erp
+   cd powp
    ```
 
 3. Instale as dependências:
@@ -71,7 +65,7 @@ Sinta-se livre para abrir issues, enviar pull requests ou sugerir melhorias.
    ```
 3. Commit suas alterações:
    ```bash
-   git commit -m 'feat: Minha nova feature'
+   git commit -m 'feat: Nova atualização'
    ```
 4. Push para o repositório:
    ```bash
@@ -83,29 +77,21 @@ Sinta-se livre para abrir issues, enviar pull requests ou sugerir melhorias.
 
 ## 👨‍💻 Equipe de Desenvolvimento
 
-- Matheus Marques Portela  
-- João Luccas Marques  
-- Marcos Paulo Moreira Damascena  
-- Victor Manuel de Moraes  
-- Victo Duarte Madaleno  
-- Pedro Echebarria  
-- Rebeca Barvosa Ferreira  
-- Igor Alexander Ribeiro de Paulo
+- Matheus Marques Portela (BackEnd e DBA) 
+- João Luccas Marques (QA)
+- Marcos Paulo Moreira Damascena (FrontEnd)
+- Victor Manuel de Moraes (FrontEnd)
+- Victo Duarte Madaleno (FrontEnd) 
+- Pedro Echebarria (Design e PO) 
 
 ---
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a [Nome da Licença] — veja o arquivo [LICENSE](./LICENSE) para detalhes.  
-*(Se ainda não definiram uma licença, podemos escolher uma também!)*
+Este projeto está licenciado sob a Licença MIT — consulte o arquivo LICENSE para mais detalhes.
 
 ---
 
 # 🌟 Seja bem-vindo ao futuro da gestão empresarial com o POWP ERP!
 
 ---
-
-Se quiser, eu também posso criar uma **versão com badges** (aquelas figurinhas no topo tipo: "build passing", "license MIT", etc.) ou uma versão que já gera automaticamente a documentação de API, instalação rápida, etc.  
-Quer que eu te mostre essas versões também? 🎯🚀
-
-Ah, e me diz: quais tecnologias vocês estão usando no POWP? Aí eu preencho certinho ali!
