@@ -52,7 +52,7 @@ verificarCodigoButton.addEventListener('click', function() {
         mensagemResultado.textContent = 'Código verificado com sucesso Agora, você pode alterar sua senha.';
         mensagemResultado.classList.add('sucesso');
         setTimeout(() => {
-            window.location.href = 'alterar-senha.html'; // Redireciona para a tela de alteração de senha
+            window.location.href = 'alterar-senhaNovo.html'; // Redireciona para a tela de alteração de senha
         }, 2000);
     } else {
         mensagemResultado.textContent = 'Código inválido. Tente novamente.';
