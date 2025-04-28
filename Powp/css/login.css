@@ -4,7 +4,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap');
+
 :root {
+    --font0: 'Sora', sans-serif;
     --fonte1: 'Fraunces', serif;
     --fonte2: 'Montserrat', sans-serif;
 
@@ -12,6 +15,9 @@
     --cor1: #3C8067;
     --cor2: #214538;
     --cor3: #0059ff;
+    --cor4: #005e17;
+    --cor5: #00b12c; 
+    --cor6: #23e654;
 }
 
 *{
@@ -21,7 +27,9 @@
 }
 
 body, html {
-    background: black url(../assets/imagens/bg1.jpg);
+    background: black url(../assets/imagens/background.jpg);
+    background-position: center center;
+    background-size: cover;
     width: 100vw;
     height: 100vh;
 }
@@ -121,7 +129,7 @@ div.links > a:hover {
 }
 
 button.btn-entrar {
-    background-color: var(--cor1);
+    background-image: linear-gradient(to right, #005e17, #00b12c, #23e654);
     color: white;
     font-family: var(--fonte2);
     font-size: 1.2em;
@@ -136,7 +144,7 @@ button.btn-entrar {
 }
 
 button.btn-entrar:hover {
-    background-color: var(--cor2);
+    background-image: linear-gradient(to left, #005e17, #00b12c, #23e654);
 }
 div#formulario > p#version {
     color: white;

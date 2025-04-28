@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toast-message');
     
-    // DOM Utility Functions
+    // referências para os elementos HTML importantes que o JS vai manipular.
     function closeModal(modal) {
       modal.classList.remove('show');
       setTimeout(() => { modal.style.display = 'none'; }, 300);
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 3000);
     }
     
-    // Render the suppliers table
+    // atualiza a tabela com os fornecedores!
     function renderSuppliers() {
       const suppliers = supplierManager.getAllSuppliers(searchInput.value);
       tableBody.innerHTML = '';
