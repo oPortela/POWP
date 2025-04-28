@@ -1,99 +1,42 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela de Login</title>
-    <link rel="stylesheet" href="css/teste.css">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-    <div class="container">
-        <!--div class="logo-container">
-            <img src="assets/imagens/2853458.jpg" alt="Logo" class="logo">
-        </div-->
-        <div class="login-form">
-            <div class="logo">
-                <img src="assets/imagens/logo.png" alt="logo">
+    <main>
+        <section id="container">
+            <div id="imagem">
+
             </div>
-            <h1>Login</h1>
-            <form id="form-login">
-                <div class="input-group">
-                    <label for="usuario">Usuário</label>
-                    <input type="text" id="usuario" name="usuario" required placeholder="Digite seu usuário">
-                </div>
+            <div id="formulario">
+                <h1>Powp</h1>
+                <h2>Distribuição e Varejo</h2>
+                <form id="form-login">
+                    <div class="input-group">
+                        <!--label for="usuario">Usuário</label-->
+                        <input type="text" id="usuario" name="usuario" required placeholder="Usuário ou e-mail">
+                    </div>
                 
-                <div class="input-group">
-                    <label for="senha">Senha</label>
-                    <input type="password" id="senha" name="senha" required placeholder="Digite sua senha">
-                </div>
+                    <div class="input-group">
+                        <!--label for="senha">Senha</label-->
+                        <input type="password" id="senha" name="senha" required placeholder="Senha">
+                    </div>
                 
-                <button type="submit" class="btn-entrar">Entrar</button>
+                    <div class="links">
+                        <a href="alterar-senha.html" class="link-esqueci">Esqueci minha senha?</a>
+                    </div>
+                    <button type="submit" class="btn-entrar">Entrar</button>
                 
-                <div class="links">
-                    <a href="alterar-senha.html" class="link-esqueci">Esqueci minha senha</a>
-                </div>
-            </form>
-        </div>
-    </div>
+                </form>
+                <p id="version">Version 01.01.02</p>
+            </div>
+        </section>
+    </main>
 
-    <script>
-        /*function verificarForcaSenha() {
-            const senha = document.getElementById('senha').value;
-            const indicador = document.getElementById('indicador-forca');
-            const textoForca = document.getElementById('texto-forca');
-            
-            // Critérios de força
-            const comprimento = senha.length;
-            const temNumeros = /[0-9]/.test(senha);
-            const temMinusculas = /[a-z]/.test(senha);
-            const temMaiusculas = /[A-Z]/.test(senha);
-            const temEspeciais = /[^A-Za-z0-9]/.test(senha);
-            
-            let forca = 0;
-            
-            if (comprimento > 7) forca += 1;
-            if (comprimento > 10) forca += 1;
-            if (temNumeros) forca += 1;
-            if (temMinusculas) forca += 1;
-            if (temMaiusculas) forca += 1;
-            if (temEspeciais) forca += 1;
-            
-            // Definir a largura e cor do indicador
-            let largura = '0%';
-            let cor = '#ddd';
-            let texto = 'Sem senha';
-            
-            if (senha.length > 0) {
-                if (forca <= 2) {
-                    largura = '33%';
-                    cor = '#ff4d4d';
-                    texto = 'Fraca';
-                } else if (forca <= 4) {
-                    largura = '66%';
-                    cor = '#ffd633';
-                    texto = 'Média';
-                } else {
-                    largura = '100%';
-                    cor = '#47d147';
-                    texto = 'Forte';
-                }
-            }
-            
-            indicador.style.width = largura;
-            indicador.style.backgroundColor = cor;
-            textoForca.textContent = texto;
-        }*/
-
-        document.getElementById('form-login').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const usuario = document.getElementById('usuario').value;
-            const senha = document.getElementById('senha').value;
-            
-            // Aqui você adicionaria o código para validar o login com o servidor
-            // Por enquanto, vamos apenas redirecionar para o dashboard
-            window.location.href = 'dashboard.html';
-        });
-    </script>
+    <script src="js/login.js"></script>
 </body>
 </html>
