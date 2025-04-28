@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alteração de Senha</title>
-    <link rel="stylesheet" href="css/alterarSenha.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="shortcut icon" href="assets/imagens/favicon-16x16.png" type="image/x-icon">
     <style>
         .senha-match {
@@ -12,15 +12,15 @@
             margin-top: 5px;
             color: #777;
         }
-        
+
         .match-error {
             color: #ff4d4d;
         }
-        
+
         .match-success {
             color: #47d147;
         }
-        
+
         .voltar-link {
             display: block;
             text-align: center;
@@ -29,9 +29,23 @@
             text-decoration: none;
             font-size: 14px;
         }
-        
+
         .voltar-link:hover {
             text-decoration: underline;
+        }
+
+        .mensagem-resultado {
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .mensagem-sucesso {
+            color: #47d147;
+        }
+
+        .mensagem-erro {
+            color: #ff4d4d;
         }
     </style>
 </head>
@@ -44,12 +58,12 @@
                     <label for="usuario">Usuário</label>
                     <input type="text" id="usuario" name="usuario" required>
                 </div>
-                
+
                 <div class="input-group">
                     <label for="senha-atual">Senha Atual</label>
                     <input type="password" id="senha-atual" name="senha-atual" required>
                 </div>
-                
+
                 <div class="input-group">
                     <label for="nova-senha">Nova Senha</label>
                     <input type="password" id="nova-senha" name="nova-senha" required oninput="verificarForcaSenha(); verificarSenhasIguais()">
@@ -60,47 +74,51 @@
                         <span id="texto-forca">Força da senha</span>
                     </div>
                 </div>
-                
+
                 <div class="input-group">
                     <label for="confirmar-senha">Confirmar Nova Senha</label>
                     <input type="password" id="confirmar-senha" name="confirmar-senha" required oninput="verificarSenhasIguais()">
                     <div class="senha-match" id="senha-match-msg"></div>
                 </div>
-                
+
                 <button type="submit" class="btn-entrar" id="btn-alterar">Alterar Senha</button>
-                
+
+                <div class="mensagem-resultado" id="mensagem-resultado"></div>
+
                 <a href="login.html" class="voltar-link">Voltar para o login</a>
             </form>
         </div>
     </div>
 
     <script>
+        let forcaAtual = 0; // Nova variável para armazenar a força da senha
+
         function verificarForcaSenha() {
             const senha = document.getElementById('nova-senha').value;
             const indicador = document.getElementById('indicador-forca');
             const textoForca = document.getElementById('texto-forca');
-            
-            // Critérios de força
+
             const comprimento = senha.length;
             const temNumeros = /[0-9]/.test(senha);
             const temMinusculas = /[a-z]/.test(senha);
             const temMaiusculas = /[A-Z]/.test(senha);
             const temEspeciais = /[^A-Za-z0-9]/.test(senha);
-            
+
             let forca = 0;
-            
+
             if (comprimento > 7) forca += 1;
             if (comprimento > 10) forca += 1;
             if (temNumeros) forca += 1;
             if (temMinusculas) forca += 1;
             if (temMaiusculas) forca += 1;
             if (temEspeciais) forca += 1;
-            
-            // Definir a largura e cor do indicador
+
+            forcaAtual = forca; // Atualiza a força atual
+
             let largura = '0%';
             let cor = '#ddd';
             let texto = 'Sem senha';
-            
+
             if (senha.length > 0) {
                 if (forca <= 2) {
                     largura = '33%';
@@ -116,18 +134,18 @@
                     texto = 'Forte';
                 }
             }
-            
+
             indicador.style.width = largura;
             indicador.style.backgroundColor = cor;
             textoForca.textContent = texto;
         }
-        
+
         function verificarSenhasIguais() {
             const novaSenha = document.getElementById('nova-senha').value;
             const confirmarSenha = document.getElementById('confirmar-senha').value;
             const mensagem = document.getElementById('senha-match-msg');
             const btnAlterar = document.getElementById('btn-alterar');
-            
+
             if (confirmarSenha.length === 0) {
                 mensagem.textContent = '';
                 mensagem.className = 'senha-match';
@@ -142,23 +160,57 @@
                 btnAlterar.disabled = true;
             }
         }
-        
+
         document.getElementById('form-alterar-senha').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const usuario = document.getElementById('usuario').value;
             const senhaAtual = document.getElementById('senha-atual').value;
             const novaSenha = document.getElementById('nova-senha').value;
             const confirmarSenha = document.getElementById('confirmar-senha').value;
-            
+            const mensagemResultado = document.getElementById('mensagem-resultado');
+
             if (novaSenha !== confirmarSenha) {
-                alert('As senhas não coincidem. Por favor, verifique.');
+                mensagemResultado.textContent = 'As senhas não coincidem. Por favor, verifique.';
+                mensagemResultado.className = 'mensagem-resultado mensagem-erro';
                 return;
             }
-            
-            // Aqui você adicionaria o código para enviar os dados para o servidor
-            alert('Senha alterada com sucesso!');
-            window.location.href = 'login.html';
+
+            if (forcaAtual <= 2) { // Bloqueia senhas fracas
+                mensagemResultado.textContent = 'Por favor, escolha uma senha mais forte.';
+                mensagemResultado.className = 'mensagem-resultado mensagem-erro';
+                return;
+            }
+
+            if (confirm("Tem certeza que deseja alterar sua senha?")) {
+                // Simula envio para o servidor
+                fetch('/alterar-senha', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        usuario: usuario,
+                        senha_atual: senhaAtual,
+                        nova_senha: novaSenha
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        mensagemResultado.textContent = 'Senha alterada com sucesso!';
+                        mensagemResultado.className = 'mensagem-resultado mensagem-sucesso';
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 2000);
+                    } else {
+                        throw new Error('Erro ao alterar senha.');
+                    }
+                })
+                .catch(error => {
+                    mensagemResultado.textContent = error.message;
+                    mensagemResultado.className = 'mensagem-resultado mensagem-erro';
+                });
+            }
         });
     </script>
 </body>
