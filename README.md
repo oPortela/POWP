@@ -3,6 +3,7 @@
 # POWP ERP
 
 **POWP ERP** is an innovative solution that propels freelancers, small, and medium-sized businesses toward new levels of **efficiency**, **organization**, and **productivity**.
+<a href="https://oportela.github.io/POWP/Powp/index.html">Landing Page</a>
 
 Designed with a modular approach, POWP allows each user to customize their experience by selecting only the modules that best meet their business needs. Our goal is to offer an **intuitive**, **flexible**, and **straightforward** system, ready to help your company grow with agility and security.
 
