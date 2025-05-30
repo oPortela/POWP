@@ -130,6 +130,8 @@ div.links > a:hover {
 
 button.btn-entrar {
     background-image: linear-gradient(to right, #005e17, #00b12c, #23e654);
+    background-size: 200% auto; /* Aumenta a largura do background */
+    background-position: left center; /* Começa da esquerda */
     color: white;
     font-family: var(--fonte2);
     font-size: 1.2em;
@@ -140,12 +142,13 @@ button.btn-entrar {
     height: 50px;
     cursor: pointer;
     margin: 15% 0;
-
+    transition: background-position 1s ease-in-out;
 }
 
 button.btn-entrar:hover {
-    background-image: linear-gradient(to left, #005e17, #00b12c, #23e654);
+    background-position: right center; /* Move para a direita */
 }
+
 div#formulario > p#version {
     color: white;
     text-align: right;
@@ -153,4 +156,81 @@ div#formulario > p#version {
     left: 0%;
 
     transform: translate(-10%, -50%);
+}
+
+/* 📱 Ajustes para telas pequenas (smartphones) */
+@media (max-width: 768px) {
+    section#container {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 90%;
+        min-height: 100;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    section#container > div#imagem {
+        width: 100%;
+        height: 200px;
+        border-radius: 15px 15px 0 0;
+    }
+
+    div#formulario {
+        position: relative;
+        left: 0;
+        width: 100%;
+        height: auto;
+        border-radius: 0 0 15px 15px;
+        padding: 5%;
+    }
+
+    form#form-login {
+        margin-top: 5%;
+        padding: 0;
+    }
+
+    main > section#container > div#formulario > h1,
+    main > section#container > div#formulario > h2 {
+        font-size: 1.4em;
+    }
+
+    div.input-group {
+        margin-top: 5%;
+    }
+
+    div.links {
+        text-align: center;
+        margin-top: 5%;
+    }
+
+    div#formulario > p#version {
+        text-align: center;
+        transform: none;
+        margin-top: 10%;
+        font-size: 0.8em;
+    }
+
+    button.btn-entrar {
+        height: 45px;
+        font-size: 1em;
+        margin: 10% 0;
+    }
+}
+
+/* 🖥️ Ajustes para tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    section#container {
+        width: 80%;
+        height: 75%;
+    }
+
+    div#formulario {
+        width: 60%;
+        left: 40%;
+    }
+
+    section#container > div#imagem {
+        width: 40%;
+    }
 }

@@ -10,46 +10,78 @@
 </head>
 <body>
   <div class="app-container">
-    <!--aside class="sidebar">
-      <div class="sidebar-top">
-        <div class="sidebar-item active" data-section="dashboard">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
-          <span class="sidebar-text">Dashboard</span>
-        </div>
-        <div class="sidebar-item" data-section="cadastro">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>
-          <span class="sidebar-text">Cadastro</span>
-        </div>
-        <div class="sidebar-item" data-section="financeiro">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-          <span class="sidebar-text">Financeiro</span>
-        </div>
-        <div class="sidebar-item" data-section="estoque">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M21 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3"></path><path d="M9 19h6"></path><path d="M10 5v14"></path><path d="M14 5v14"></path><path d="M3 8h18v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z"></path></svg>
-          <span class="sidebar-text">Estoque</span>
-        </div>
-        <div class="sidebar-item" data-section="vendas">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="m6.5 2 11 11-4 4-11-11V2Z"></path></svg>
-          <span class="sidebar-text">Vendas</span>
-        </div>
-        <div class="sidebar-item" data-section="arquivos">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-          <span class="sidebar-text">Arquivos</span>
-        </div>
-      </div>
-      <div class="sidebar-bottom">
-        <div class="sidebar-item" data-section="settings">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-          <span class="sidebar-text">Configurações</span>
-        </div>
-        <div class="sidebar-item" data-section="help">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
-          <span class="sidebar-text">Ajuda</span>
-        </div>
-      </div>
-    </aside-->
+      <div class="sidebar">
+        <div class="user-profile">
+            <div class="avatar">
+                <svg viewBox="0 0 24 24" fill="white" width="32" height="32">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                </svg>
+            </div>
+        </div>     
 
-    <aside class="sidebar">
+        <nav class="menu">
+            <a href="dashboard.html" class="menu-item active">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path>
+                </svg>
+                <!--span class="icon">📊</span-->
+                <span class="sidebar-text">Dashboard</span>
+            </a>
+            <a href="cadastroFornecedor.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path>
+                </svg>
+                <!--span class="icon">📝</span-->
+                <span class="sidebar-text">Cadastro</span>
+            </a>
+            <a href="#" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"></path>
+                </svg>
+                <!--span class="icon">💰</span-->
+                <span class="sidebar-text">Financeiro</span>
+            </a>
+            <a href="#" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h2v8l2.5-1.5L13 12V4h5v16z"></path>
+                </svg>
+                <!--span class="icon">📦</span-->
+                <span class="sidebar-text">Estoque</span>
+            </a>
+            <a href="pedidoVenda.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
+                </svg>
+                <!--span class="icon">🛍️</span-->
+                <span class="sidebar-text">Vendas</span>
+            </a>
+            <a href="#" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"></path>
+                </svg>
+                <!--span class="icon">📁</span-->
+                <span class="sidebar-text">Arquivos</span>
+            </a>
+        </nav>
+        <div class="bottom-menu">
+            <a href="#" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"></path>
+                </svg>
+                <!--span class="icon">⚙️</span-->
+                <span class="sidebar-text">Configurações</span>
+            </a>
+            <a href="login.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"></path>
+                </svg>
+                <!--span class="icon">❓</span-->
+                <span class="sidebar-text">Sair</span>
+            </a>
+        </div>
+    </div>
+
+    <!--aside class="sidebar">
     
       <!--div class="user-profile">
         <div class="avatar">
@@ -57,7 +89,7 @@
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
             </svg>
         </div>
-      </div-->   
+      </div>   
 
       <div class="sidebar-top">
         <div class="sidebar-item" data-section="dashboard">
@@ -97,7 +129,7 @@
           <span class="sidebar-text">Ajuda</span>
         </div>
       </div>
-    </aside>
+    </aside-->
 
     <main class="main-content">
       <header class="header">

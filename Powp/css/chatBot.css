@@ -16,67 +16,88 @@ body {
     height: 100vh;
 }
 
-/* Sidebar Styles */
+/*Sidebar config*/
 .sidebar {
-    width: 64px;
-    background-color: #007955;
-    height: 100vh;
+    width: 75px;
+    background-color: #004d40;
+    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 16px 0;
-    position: relative;
+    padding: 20px 0;
+    transition: width 0.3s;
+    overflow: hidden;
+    height: 100vh;
 }
 
-.sidebar-items {
+.sidebar:hover {
+    width: 200px;
+}
+
+.sidebar-item .icon {
+    min-width: 24px;
+    height: 24px;
+    margin-right: var(--spacing-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-text {
+    opacity: 0;
+    transition: opacity var(--transition-speed);
+}
+  
+.sidebar:hover .sidebar-text {
+    opacity: 1;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    width: 100%;
     flex: 1;
 }
 
-.sidebar-bottom {
-    margin-top: auto;
-}
-
-.sidebar-item {
+.menu-item {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 8px;
-    color: rgba(255, 255, 255, 0.7);
+    padding: 12px 20px;
+    color: white;
     text-decoration: none;
-    transition: all 0.2s;
-    position: relative;
-    font-size: 20px;
-}
-
-.sidebar-item:hover,
-.sidebar-item.active {
-    background-color: #00A870;
-    color: white;
-}
-
-.tooltip {
-    position: absolute;
-    left: 64px;
-    background-color: #374151;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
     white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.2s;
-    pointer-events: none;
-    z-index: 10;
+    transition: background-color 0.3s;
 }
 
-.sidebar-item:hover .tooltip {
-    opacity: 1;
+.menu-item:hover, .menu-item.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item svg {
+    margin-right: 15px;
+    min-width: 24px;
+}
+
+.bottom-menu {
+    margin-top: auto;
+    width: 100%;
 }
 
 /* Main Content */

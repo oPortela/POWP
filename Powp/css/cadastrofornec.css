@@ -49,69 +49,88 @@
   }
   
   /* Sidebar Styles */
-  .sidebar {
-    width: 56px;
-    height: 100%;
-    background-color: var(--primary-color);
-    color: var(--text-light);
+.sidebar {
+    width: 75px;
+    background-color: #004d40;
+    color: white;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    transition: width var(--transition-speed);
-    overflow: hidden;
-    padding: var(--spacing-2) 0;
-    z-index: 10;
-  }
-  
-  .sidebar:hover {
-    width: 200px;
-  }
-  
-  .sidebar-top, .sidebar-bottom {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-1);
-  }
-  
-  .sidebar-item {
-    display: flex;
     align-items: center;
-    padding: var(--spacing-2) var(--spacing-3);
-    cursor: pointer;
-    transition: background-color var(--transition-speed);
-    white-space: nowrap;
-    border-left: 3px solid transparent;
-    text-decoration: none;
-  }
-  
-  .sidebar-item:hover {
-    background-color: var(--primary-light);
-  }
-  
-  .sidebar-item.active {
-    background-color: var(--primary-light);
-    border-left: 3px solid var(--accent-color);
-  }
+    padding: 20px 0;
+    transition: width 0.3s;
+    overflow: hidden;
+    height: 100vh;
+}
 
-  .sidebar-item a{
-    text-decoration: none;
-    color: inherit
-  }
-  
-  .sidebar-item .icon {
+.sidebar:hover {
+    width: 200px;
+}
+
+.sidebar-item .icon {
     min-width: 24px;
     height: 24px;
     margin-right: var(--spacing-3);
-  }
-  
-  .sidebar-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-text {
     opacity: 0;
     transition: opacity var(--transition-speed);
-  }
+}
   
-  .sidebar:hover .sidebar-text {
+.sidebar:hover .sidebar-text {
     opacity: 1;
-  }
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: white;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.3s;
+}
+
+.menu-item:hover, .menu-item.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item svg {
+    margin-right: 15px;
+    min-width: 24px;
+}
+
+.bottom-menu {
+    margin-top: auto;
+    width: 100%;
+}
   
   /* Main Content Styles */
   .main-content {
