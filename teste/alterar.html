@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Change Interface</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="illustration-side">
+                <div class="password-illustration">
+                    <div class="circle-bg"></div>
+                    <div class="lock-icon">
+                        <img src="https://api.iconify.design/lucide:lock.svg" alt="Lock">
+                    </div>
+                    <div class="user-icon">
+                        <img src="https://api.iconify.design/lucide:user.svg" alt="User">
+                    </div>
+                    <div class="tablet">
+                        <div class="tablet-screen">
+                            <div class="password-field"></div>
+                            <div class="strength-bar"></div>
+                        </div>
+                        <div class="tablet-button"></div>
+                    </div>
+                    <div class="arrow">
+                        <img src="https://api.iconify.design/lucide:arrow-right.svg" alt="Arrow">
+                    </div>
+                    <div class="phone">
+                        <div class="phone-notch"></div>
+                        <div class="phone-header">YOUR CODE</div>
+                        <div class="phone-code">56698</div>
+                        <div class="phone-button"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-side">
+                <div class="header">
+                    <h1>Alteração de senha</h1>
+                    <p>Powp. Distribuição e Varejo</p>
+                </div>
+                <div class="form-container">
+                    <div class="username-section">
+                        <div class="input-group">
+                            <img src="https://api.iconify.design/lucide:user.svg" alt="User" class="input-icon">
+                            <span class="username">MATHEUSPORTELA</span>
+                        </div>
+                    </div>
+                    <div class="password-section">
+                        <div class="input-group">
+                            <img src="https://api.iconify.design/lucide:lock.svg" alt="Lock" class="input-icon">
+                            <input type="password" id="password" placeholder="Nova senha">
+                        </div>
+                        <div class="strength-indicator">
+                            <div class="strength-labels">
+                                <span>Fraca</span>
+                                <span>Boa</span>
+                                <span>Forte</span>
+                                <span>Muito Forte</span>
+                            </div>
+                            <div class="strength-bars">
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="confirm-password-section">
+                        <div class="input-group">
+                            <img src="https://api.iconify.design/lucide:lock.svg" alt="Lock" class="input-icon">
+                            <input type="password" id="confirmPassword" placeholder="Confirmar senha">
+                        </div>
+                    </div>
+                    <div class="show-password">
+                        <label>
+                            <input type="checkbox" id="showPasswordToggle">
+                            <span>Exibir a senha</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="footer">
+                    <button class="btn btn-primary">OK</button>
+                    <button class="btn btn-secondary">Cancelar</button>
+                    <div class="version">Version 01.01.02</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
