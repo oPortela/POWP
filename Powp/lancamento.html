@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP - Informações de Lançamento</title>
+    <link rel="stylesheet" href="css/lancamento.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-item">
+                <i class="fas fa-user"></i>
+                <span>Dashboard</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-chart-bar"></i>
+                <span><a href="dashboard.html">Dashboard</a></span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-users"></i>
+                <span>Cadastro</span>
+            </div>
+            <div class="sidebar-item active">
+                <i class="fas fa-calculator"></i>
+                <span>Financeiro</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-boxes"></i>
+                <span>Estoque</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Vendas</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-archive"></i>
+                <span>Arquivos</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-undo"></i>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <span>Financeiro</span>
+                <i class="fas fa-arrow-right"></i>
+                <span>Lançamentos</span>
+                <i class="fas fa-arrow-right"></i>
+                <span>Contas a Pagar</span>
+                <i class="fas fa-arrow-right"></i>
+                <span>Informações de lançamento</span>
+            </div>
+
+            <!-- Form Container -->
+            <div class="form-container">
+                <h2>Informações de lançamento</h2>
+                
+                <!-- First Row -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Data de competência</label>
+                        <input type="date" value="2023-10-25" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Núm. Nota Fiscal</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo Serviço</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Valor</label>
+                        <div class="currency-input">
+                            <span class="currency-symbol">$</span>
+                            <input type="text" class="form-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second Row -->
+                <div class="form-row">
+                    <div class="form-group small">
+                        <label>XXXXXXXX</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Centro de custo</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo Parceiro</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Parceiro</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Banco</label>
+                        <input type="text" class="form-input">
+                    </div>
+                </div>
+
+                <!-- Repetir Lançamento -->
+                <div class="repetir-section">
+                    <div class="toggle-container">
+                        <span>Repetir Lançamento</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="repetir" class="toggle-input">
+                            <label for="repetir" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                                <span class="toggle-text">X</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Conditions -->
+                <div class="payment-section">
+                    <h3>Condições de Pagamento</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Cobrança</label>
+                            <input type="text" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Forma de Pagamento</label>
+                            <input type="text" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Conta de Pagamento</label>
+                            <input type="text" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Data de vencimento</label>
+                            <input type="date" value="2023-10-25" class="form-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Observations and Annexes -->
+                <div class="tabs-section">
+                    <div class="tabs">
+                        <div class="tab active">Observações</div>
+                        <div class="tab">Anexo</div>
+                    </div>
+                    <div class="tab-content">
+                        <textarea class="observations-textarea" placeholder="Digite suas observações aqui..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn-cancel">Cancelar</button>
+                    <button class="btn-next" id="btnProximo">Próximo</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Button -->
+        <div class="help-button">
+            <i class="fas fa-question"></i>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="modalConfirmacao" class="modal">
+        <div class="modal-content">
+            <h3>Deseja realizar o lançamento ?</h3>
+            <div class="modal-buttons">
+                <button class="btn-no" id="btnNao">Não</button>
+                <button class="btn-yes" id="btnSim">Sim</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Sucesso -->
+    <div id="modalSucesso" class="modal">
+        <div class="modal-content">
+            <h3>Lançamento realizado com sucesso!</h3>
+            <p>Deseja realizar outro Lançamento?</p>
+            <div class="modal-buttons">
+                <button class="btn-no" id="btnNaoSucesso">Não</button>
+                <button class="btn-yes" id="btnSimSucesso">Sim</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/lancamento.js"></script>
+</body>
+</html>
