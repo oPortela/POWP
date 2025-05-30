@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP ChatBot IA</title>
+    <link rel="stylesheet" href="css/chatBot.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-items">
+                <a href="#" class="sidebar-item" data-page="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span class="tooltip">Dashboard</span>
+                </a>
+                <a href="#" class="sidebar-item" data-page="cadastro">
+                    <i class="fas fa-archive"></i>
+                    <span class="tooltip">Cadastro</span>
+                </a>
+                <a href="#" class="sidebar-item" data-page="financeiro">
+                    <i class="fas fa-calendar"></i>
+                    <span class="tooltip">Financeiro</span>
+                </a>
+                <a href="#" class="sidebar-item" data-page="estoque">
+                    <i class="fas fa-database"></i>
+                    <span class="tooltip">Estoque</span>
+                </a>
+                <a href="#" class="sidebar-item" data-page="vendas">
+                    <i class="fas fa-file-text"></i>
+                    <span class="tooltip">Vendas</span>
+                </a>
+                <a href="#" class="sidebar-item" data-page="arquivos">
+                    <i class="fas fa-archive"></i>
+                    <span class="tooltip">Arquivos</span>
+                </a>
+                <a href="#" class="sidebar-item active" data-page="chatbot">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="tooltip">ChatBot IA</span>
+                </a>
+            </div>
+            <div class="sidebar-bottom">
+                <a href="#" class="sidebar-item" data-page="configuracoes">
+                    <i class="fas fa-cog"></i>
+                    <span class="tooltip">Configurações</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-info">
+                    <h1>ChatBot IA</h1>
+                    <p>Assistente inteligente para seu ERP</p>
+                </div>
+                <div class="online-status">
+                    <div class="status-dot"></div>
+                    <span>Online</span>
+                </div>
+            </div>
+
+            <!-- Chat Container -->
+            <div class="chat-container">
+                <!-- Suggested Questions Sidebar -->
+                <div class="suggestions-sidebar">
+                    <h3>Perguntas sugeridas:</h3>
+                    <div class="suggestions-grid">
+                        <button class="suggestion-btn" data-question="Qual foi o faturamento do mês passado?">
+                            Qual foi o faturamento do mês passado?
+                        </button>
+                        <button class="suggestion-btn" data-question="Quantos fornecedores estão cadastrados?">
+                            Quantos fornecedores estão cadastrados?
+                        </button>
+                        <button class="suggestion-btn" data-question="Quais produtos estão com estoque baixo?">
+                            Quais produtos estão com estoque baixo?
+                        </button>
+                        <button class="suggestion-btn" data-question="Mostrar vendas da última semana">
+                            Mostrar vendas da última semana
+                        </button>
+                        <button class="suggestion-btn" data-question="Qual fornecedor tem mais produtos cadastrados?">
+                            Qual fornecedor tem mais produtos cadastrados?
+                        </button>
+                        <button class="suggestion-btn" data-question="Relatório de clientes inadimplentes">
+                            Relatório de clientes inadimplentes
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat Area -->
+                <div class="chat-area">
+                    <!-- Messages -->
+                    <div class="messages-container" id="messagesContainer">
+                        <div class="message ai-message">
+                            <div class="ai-avatar">IA</div>
+                            <div class="message-content">
+                                <div class="message-bubble ai-bubble">
+                                    <p>Olá! Eu sou seu assistente IA para o ERP. Como posso ajudá-lo hoje? Posso fornecer informações sobre fornecedores, vendas, estoque, relatórios financeiros e muito mais!</p>
+                                </div>
+                                <div class="message-time" id="initialTime"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Loading Indicator -->
+                    <div class="loading-indicator" id="loadingIndicator" style="display: none;">
+                        <div class="loading-bubble">
+                            <div class="loading-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="input-area">
+                        <div class="input-container">
+                            <input 
+                                type="text" 
+                                id="messageInput" 
+                                placeholder="Digite sua pergunta sobre dados da empresa..."
+                                disabled="false"
+                            >
+                            <button id="sendButton" class="send-btn">
+                                Enviar
+                            </button>
+                        </div>
+                        <p class="tip-text">
+                            💡 Dica: Pergunte sobre vendas, fornecedores, estoque, relatórios financeiros e muito mais!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/chatBot.js"></script>
+</body>
+</html>

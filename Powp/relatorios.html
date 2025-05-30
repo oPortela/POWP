@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Relatório - ERP Modal</title>
+    <link rel="stylesheet" href="css/relatorios.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <div class="logo-icon">E</div>
+                    <span class="logo-text">ERP Modal</span>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="index.html">Dashboard</a>
+                    <a href="relatorios.html" class="active">Relatórios</a>
+                    <a href="#vendas">Vendas</a>
+                    <a href="#estoque">Estoque</a>
+                    <a href="#financeiro">Financeiro</a>
+                    <a href="#clientes">Clientes</a>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-outline">Configurações</button>
+                    <button class="btn btn-primary">Perfil</button>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="index.html">Dashboard</a>
+                <a href="relatorios.html">Relatórios</a>
+                <a href="#vendas">Vendas</a>
+                <a href="#estoque">Estoque</a>
+                <a href="#financeiro">Financeiro</a>
+                <a href="#clientes">Clientes</a>
+                
+                <div class="mobile-buttons">
+                    <button class="btn btn-outline">Configurações</button>
+                    <button class="btn btn-primary">Perfil</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="reports-main">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>Criar Relatório</h1>
+                    <p>Configure e gere relatórios personalizados do seu sistema</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-outline" id="saveTemplateBtn">
+                        <span>💾</span>
+                        Salvar Modelo
+                    </button>
+                    <button class="btn btn-primary" id="generateReportBtn">
+                        <span>📊</span>
+                        Gerar Relatório
+                    </button>
+                </div>
+            </div>
+
+            <!-- Report Creation Form -->
+            <div class="reports-content">
+                <!-- Basic Information -->
+                <div class="report-section">
+                    <h2>Informações Básicas</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="reportName">Nome do Relatório</label>
+                            <input type="text" id="reportName" placeholder="Ex: Vendas Mensais">
+                        </div>
+                        <div class="form-group">
+                            <label for="reportType">Tipo de Relatório</label>
+                            <select id="reportType">
+                                <option value="">Selecione o tipo</option>
+                                <option value="vendas">Relatório de Vendas</option>
+                                <option value="estoque">Relatório de Estoque</option>
+                                <option value="financeiro">Relatório Financeiro</option>
+                                <option value="clientes">Relatório de Clientes</option>
+                                <option value="produtos">Relatório de Produtos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reportFormat">Formato de Saída</label>
+                            <select id="reportFormat">
+                                <option value="pdf">PDF</option>
+                                <option value="excel">Excel</option>
+                                <option value="csv">CSV</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reportDescription">Descrição</label>
+                            <textarea id="reportDescription" placeholder="Descreva o objetivo do relatório"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date Range -->
+                <div class="report-section">
+                    <h2>Período</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="dateFrom">Data Inicial</label>
+                            <input type="date" id="dateFrom">
+                        </div>
+                        <div class="form-group">
+                            <label for="dateTo">Data Final</label>
+                            <input type="date" id="dateTo">
+                        </div>
+                        <div class="form-group">
+                            <label for="periodPreset">Períodos Pré-definidos</label>
+                            <select id="periodPreset">
+                                <option value="">Selecione um período</option>
+                                <option value="today">Hoje</option>
+                                <option value="yesterday">Ontem</option>
+                                <option value="this-week">Esta Semana</option>
+                                <option value="last-week">Semana Passada</option>
+                                <option value="this-month">Este Mês</option>
+                                <option value="last-month">Mês Passado</option>
+                                <option value="this-year">Este Ano</option>
+                                <option value="last-year">Ano Passado</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="report-section">
+                    <h2>Filtros</h2>
+                    <div class="filters-container">
+                        <div class="filter-group">
+                            <h3>Filtros Disponíveis</h3>
+                            <div class="filter-options" id="availableFilters">
+                                <div class="filter-option" data-filter="status">
+                                    <span>Status</span>
+                                    <button class="add-filter-btn">+</button>
+                                </div>
+                                <div class="filter-option" data-filter="category">
+                                    <span>Categoria</span>
+                                    <button class="add-filter-btn">+</button>
+                                </div>
+                                <div class="filter-option" data-filter="client">
+                                    <span>Cliente</span>
+                                    <button class="add-filter-btn">+</button>
+                                </div>
+                                <div class="filter-option" data-filter="product">
+                                    <span>Produto</span>
+                                    <button class="add-filter-btn">+</button>
+                                </div>
+                                <div class="filter-option" data-filter="seller">
+                                    <span>Vendedor</span>
+                                    <button class="add-filter-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <h3>Filtros Aplicados</h3>
+                            <div class="applied-filters" id="appliedFilters">
+                                <p class="no-filters">Nenhum filtro aplicado</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columns -->
+                <div class="report-section">
+                    <h2>Colunas do Relatório</h2>
+                    <div class="columns-container">
+                        <div class="column-group">
+                            <h3>Colunas Disponíveis</h3>
+                            <div class="column-options" id="availableColumns">
+                                <!-- Columns will be populated based on report type -->
+                            </div>
+                        </div>
+                        <div class="column-group">
+                            <h3>Colunas Selecionadas</h3>
+                            <div class="selected-columns" id="selectedColumns">
+                                <p class="no-columns">Nenhuma coluna selecionada</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview -->
+                <div class="report-section">
+                    <h2>Visualização</h2>
+                    <div class="preview-container">
+                        <div class="preview-header">
+                            <span>Preview do Relatório</span>
+                            <button class="btn btn-outline" id="refreshPreviewBtn">Atualizar Preview</button>
+                        </div>
+                        <div class="preview-content" id="previewContent">
+                            <div class="preview-placeholder">
+                                <span>📊</span>
+                                <p>Configure os parâmetros acima para visualizar o relatório</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="js/relatorios.js"></script>
+</body>
+</html>
