@@ -71,11 +71,17 @@ body {
     background-color: transparent;
     color: var(--green);
     border: 2px solid var(--green);
+    text-decoration: none;
 }
 
 .btn-outline:hover {
     background-color: var(--green);
     color: var(--white);
+}
+
+.btn-outline a {
+    text-decoration: none;
+    color: inherit
 }
 
 .btn-outline-white {

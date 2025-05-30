@@ -81,6 +81,7 @@
     transition: background-color var(--transition-speed);
     white-space: nowrap;
     border-left: 3px solid transparent;
+    text-decoration: none;
   }
   
   .sidebar-item:hover {
@@ -90,6 +91,11 @@
   .sidebar-item.active {
     background-color: var(--primary-light);
     border-left: 3px solid var(--accent-color);
+  }
+
+  .sidebar-item a{
+    text-decoration: none;
+    color: inherit
   }
   
   .sidebar-item .icon {

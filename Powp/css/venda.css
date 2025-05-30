@@ -125,6 +125,11 @@
     opacity: 0;
     transition: opacity var(--transition-speed);
   }
+
+  .sidebar-text a {
+    text-decoration: none;
+    color: inherit;
+  }
   
   .sidebar:hover .sidebar-text {
     opacity: 1;
