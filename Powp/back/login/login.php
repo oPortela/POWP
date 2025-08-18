@@ -70,8 +70,8 @@ function handleLogin() {
         return;
     }
 
-    // busca o usuário no banco de dados
-    $stmt = $conn->prepare("SELECT codusur, nome, usuario, senha, funcao FROM usuarios WHERE usuario = ?");
+    // busca o usuário no banco de dados (incluindo verificação de status ativo)
+    $stmt = $conn->prepare("SELECT codusur, nome, usuario, senha, funcao FROM usuarios WHERE usuario = ? AND status = 'A'");
     $stmt->bind_param("s", $usuario);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -80,17 +80,8 @@ function handleLogin() {
     if ($result && $result->num_rows > 0) {
         $user_data = $result->fetch_assoc();
 
-        // Verifica se a senha está correta (suporta tanto hash quanto texto plano)
-        $senhaCorreta = false;
-        
-        // Primeiro tenta verificar se é um hash
-        if (password_verify($senha, $user_data['senha'])) {
-            $senhaCorreta = true;
-        } 
-        // Se não for hash, compara diretamente (para senhas em texto plano)
-        else if ($senha === $user_data['senha']) {
-            $senhaCorreta = true;
-        }
+        // Verifica se a senha está correta usando hash
+        $senhaCorreta = password_verify($senha, $user_data['senha']);
 
         if ($senhaCorreta) {
             // Atualiza o último login

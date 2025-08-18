@@ -10,3 +10,9 @@ CREATE TABLE usuarios (
     status char(1) NOT NULL DEFAULT 'L',
     permissoes LONGTEXT
 );
+USE powp;
+
+SELECT * FROM usuarios;
+
+INSERT INTO usuarios (nome, data_cadastro, usuario, senha, funcao, status)
+VALUES('Administrador', SYSDATE(), 'admin', '$2y$10$AuPpPBAiMplrFHrXshRFou.4VW77TGYxupOV1z/pXirrSaqoEoSku', 'admin', 'A');
