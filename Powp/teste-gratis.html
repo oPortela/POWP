@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Grátis - ERP Modal</title>
+    <link rel="stylesheet" href="css/teste-gratis.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Modal de Teste Grátis -->
+    <div id="testeGratisModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🚀 Teste Grátis por 30 Dias</h2>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+                <div class="benefits-preview">
+                    <div class="benefit-item">
+                        <span class="check">✓</span>
+                        <span>Acesso completo ao sistema</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="check">✓</span>
+                        <span>Dados de exemplo incluídos</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="check">✓</span>
+                        <span>Suporte por WhatsApp</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="check">✓</span>
+                        <span>Sem cartão de crédito</span>
+                    </div>
+                </div>
+
+                <form id="testeGratisForm" class="teste-form">
+                    <div class="form-group">
+                        <label for="nomeEmpresa">Nome da Empresa *</label>
+                        <input type="text" id="nomeEmpresa" name="nomeEmpresa" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nomeResponsavel">Seu Nome *</label>
+                        <input type="text" id="nomeResponsavel" name="nomeResponsavel" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefone">WhatsApp *</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(62) 99999-9999" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="segmento">Segmento da Empresa</label>
+                        <select id="segmento" name="segmento">
+                            <option value="">Selecione...</option>
+                            <option value="comercio">Comércio</option>
+                            <option value="servicos">Serviços</option>
+                            <option value="industria">Indústria</option>
+                            <option value="distribuicao">Distribuição</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="funcionarios">Número de Funcionários</label>
+                        <select id="funcionarios" name="funcionarios">
+                            <option value="">Selecione...</option>
+                            <option value="1-5">1 a 5</option>
+                            <option value="6-20">6 a 20</option>
+                            <option value="21-50">21 a 50</option>
+                            <option value="51-100">51 a 100</option>
+                            <option value="100+">Mais de 100</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="termos" name="termos" required>
+                            <span class="checkmark"></span>
+                            Aceito os <a href="#" target="_blank">termos de uso</a> e <a href="#" target="_blank">política de privacidade</a>
+                        </label>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="newsletter" name="newsletter">
+                            <span class="checkmark"></span>
+                            Quero receber dicas e novidades por e-mail
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="btnSubmit">
+                        <span class="btn-text">Iniciar Teste Grátis</span>
+                        <div class="loading" id="loading" style="display: none;">
+                            <div class="spinner"></div>
+                        </div>
+                    </button>
+                </form>
+
+                <div class="success-message" id="successMessage" style="display: none;">
+                    <div class="success-icon">🎉</div>
+                    <h3>Teste Grátis Ativado!</h3>
+                    <p>Enviamos suas credenciais de acesso por e-mail.</p>
+                    <div class="access-info">
+                        <p><strong>Seu acesso:</strong></p>
+                        <p>Usuário: <span id="usuarioDemo"></span></p>
+                        <p>Senha: <span id="senhaDemo"></span></p>
+                    </div>
+                    <button class="btn-access" onclick="window.open('dashboard.html', '_blank')">
+                        Acessar Sistema Agora
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/teste-gratis.js"></script>
+</body>
+</html>

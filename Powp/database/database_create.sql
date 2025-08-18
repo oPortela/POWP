@@ -1,0 +1,5 @@
+CREATE DATABASE powp;
+
+COMMIT;
+
+USE powp;
