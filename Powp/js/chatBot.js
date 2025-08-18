@@ -81,12 +81,33 @@ class ERPChatbot {
         this.messageInput.value = '';
         this.setLoading(true);
 
-        // Simulate AI processing
-        setTimeout(() => {
+        try {
+            // Send message to AI API
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: messageText
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                this.addMessage(data.response, false);
+            } else {
+                this.addMessage('Desculpe, ocorreu um erro ao processar sua pergunta. Tente novamente.', false);
+            }
+        } catch (error) {
+            console.error('Erro ao enviar mensagem:', error);
+            // Fallback para resposta simulada se a API falhar
             const aiResponse = this.simulateAIResponse(messageText);
             this.addMessage(aiResponse, false);
-            this.setLoading(false);
-        }, 1500);
+        }
+
+        this.setLoading(false);
     }
 
     addMessage(text, isUser) {
