@@ -104,7 +104,8 @@ body {
 /* Main Content */
 .main-content {
     flex: 1;
-    padding: 20px;
+    padding-right: 20px;
+    overflow-y: auto;
     background-color: #f8f9fa;
 }
 
@@ -208,6 +209,7 @@ body {
     grid-template-columns: 1fr 400px;
     gap: 30px;
     margin-bottom: 30px;
+    padding: auto;
 }
 
 /* Chart Section */
