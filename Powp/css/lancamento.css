@@ -395,13 +395,13 @@ body {
     width: 400px;
     max-width: 90%;
     text-align: center;
-    transform: translateY(-50%);
+    transform: translateY(-330%);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .modal-content h3 {
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     font-size: 18px;
 }
 
