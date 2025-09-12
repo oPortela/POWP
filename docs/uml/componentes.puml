@@ -1,0 +1,20 @@
+@startuml
+package "Frontend" {
+  [JS]
+  [CSS]
+  [HTML]
+}
+
+package "Backend" {
+  [API PHP/Laravel]
+}
+
+package "Banco de Dados" {
+  [MySQL]
+}
+
+[HTML] --> [CSS]
+[HTML] --> [JS]
+[JS] --> [API PHP/Laravel]
+[API PHP/Laravel] --> [MySQL]
+@enduml

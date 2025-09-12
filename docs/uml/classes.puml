@@ -1,0 +1,41 @@
+@startuml
+class Cliente {
+  - id: int
+  - nome: string
+  - email: string
+  - telefone: string
+}
+
+class Produto {
+  - id: int
+  - nome: string
+  - preco: decimal
+  - estoque: int
+  + atualizarEstoque(qtd: int)
+}
+
+class Pedido {
+  - id: int
+  - data: date
+  + calcularTotal()
+}
+
+class ItemPedido {
+  - id: int
+  - quantidade: int
+  - precoUnitario: decimal
+}
+
+class Usuario {
+  - id: int
+  - login: string
+  - senha: string
+  - perfil: string
+  + autenticar()
+}
+
+Cliente "1" -- "N" Pedido
+Pedido "1" -- "N" ItemPedido
+Produto "1" -- "N" ItemPedido
+Usuario "1" -- "N" Pedido
+@enduml

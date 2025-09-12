@@ -1,0 +1,13 @@
+@startuml
+start
+:Vendedor faz pedido;
+:Sistema valida dados;
+if (Estoque disponível?) then (Sim)
+  :Registrar pedido;
+  :Atualizar estoque;
+  :Enviar e-mail ao cliente;
+else (Não)
+  :Exibir mensagem de erro;
+endif
+stop
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+actor Funcionario
+participant "TelaVenda" as UI
+participant "API" as API
+participant "PedidoService" as Service
+database "Banco de Dados" as DB
+
+Funcionario -> UI: Inicia venda
+UI -> API: POST /pedido
+API -> Service: criarPedido()
+Service -> DB: INSERT Pedido
+Service -> DB: INSERT ItensPedido
+Service -> DB: UPDATE Estoque
+DB --> Service: OK
+Service --> API: Pedido criado com sucesso
+API --> UI: Retorna confirmação
+UI --> Funcionario: Exibe número do pedido
+@enduml

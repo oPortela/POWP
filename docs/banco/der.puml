@@ -1,0 +1,42 @@
+@startuml
+entity Cliente {
+  * id_cliente : int <<PK>>
+  nome : varchar
+  email : varchar
+  telefone : varchar
+}
+
+entity Produto {
+  * id_produto : int <<PK>>
+  nome : varchar
+  preco : decimal
+  estoque : int
+}
+
+entity Pedido {
+  * id_pedido : int <<PK>>
+  data : date
+  id_cliente : int <<FK>>
+  id_usuario : int <<FK>>
+}
+
+entity ItemPedido {
+  * id_item : int <<PK>>
+  id_pedido : int <<FK>>
+  id_produto : int <<FK>>
+  quantidade : int
+  precoUnitario : decimal
+}
+
+entity Usuario {
+  * id_usuario : int <<PK>>
+  login : varchar
+  senha : varchar
+  perfil : varchar
+}
+
+Pedido }o--|| Cliente
+Pedido }o--|| Usuario
+ItemPedido }o--|| Pedido
+ItemPedido }o--|| Produto
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+left to right direction
+actor Cliente
+actor Funcionario
+actor Administrador
+
+rectangle ERP {
+  Cliente --> (Fazer Pedido)
+  Cliente --> (Consultar Estoque)
+
+  Funcionario --> (Registrar Venda)
+  Funcionario --> (Gerar Relatório de Vendas)
+  Funcionario --> (Atualizar Estoque)
+
+  Administrador --> (Gerenciar Usuários)
+  Administrador --> (Configurar Sistema)
+}
+@enduml
