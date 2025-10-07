@@ -1,3 +1,57 @@
+// URL da API
+const API_URL = 'http://127.0.0.1:8000/api';
+
+// Função para buscar e atualizar o contador de clientes ativos
+document.addEventListener('DOMContentLoaded', function() {
+    const contadorElement = document.getElementById('contador-clientes-ativos');
+
+    if (contadorElement) {
+        
+        contadorElement.textContent = '...';
+
+        fetch(`${API_URL}/dados-contagem-clientes`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Falha na resposta da API');
+                }
+
+                return response.json();
+            })
+            .then(data => {
+                contadorElement.textContent = data.active_clients_count;
+            })
+            .catch(error => {
+                console.error('Erro ao buscar dados dos clientes: ', error);
+                contadorElement.textContent = 'Erro';
+            });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const contadorSales = document.getElementById('contador-vendas-hoje');
+
+    if (contadorSales) {
+        contadorSales.textContent = '...';
+
+        fetch(`${API_URL}/dados-qt-vendas-hoje`)
+            .then(response => {
+                if  (!response.ok) {
+                    throw new Error('Falha na resposta da API');
+                }
+
+                return response.json();
+            })
+            .then(data => {
+                contadorSales.textContent = data.sales_today_count;
+            })
+            .catch(error => {
+                console.error('Erro ao buscar dados de vendas: ', error);
+                contadorSales.textContent = 'Erro';
+            })
+    }
+});
+
+// Configuração do gráfico de linha
 const salesCtx = document.getElementById('salesChart').getContext('2d');
     const salesChart = new Chart(salesCtx, {
         type: 'line',
