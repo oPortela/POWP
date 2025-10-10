@@ -1,61 +1,131 @@
 // URL da API
 const API_URL = 'http://127.0.0.1:8000/api';
 
-// Função para buscar e atualizar o contador de vendas de hoje
-document.addEventListener('DOMContentLoaded', function() {
-    const contadorSales = document.getElementById('contador-vendas-hoje');
+// Função para buscar todos os dados do dashboard de uma vez
+function fetchAllDashboardData() {
+    // 1. Seleciona TODOS os elementos que vamos manipular de uma vez.
+    const salesCountEl = document.getElementById('contador-vendas-hoje');
+    const activeClientsEl = document.getElementById('contador-clientes-ativos');
+    const salesValueEl = document.getElementById('valor-venda-hoje');
+    const ticketMedioEl = document.getElementById('ticket-medio');
 
-    if (contadorSales) {
-        contadorSales.textContent = '...';
+    // 2. Define o estado de carregamento para todos.
+    if(salesCountEl) salesCountEl.textContent = '...';
+    if(activeClientsEl) activeClientsEl.textContent = '...';
+    if(salesValueEl) salesValueEl.textContent = '...';
+    if(ticketMedioEl) ticketMedioEl.textContent = '...';
 
-        fetch(`${API_URL}/dados-qt-vendas-hoje`)
-            .then(response => {
-                if  (!response.ok) {
-                    throw new Error('Falha na resposta da API');
+    // 3. Prepara as 3 promessas de fetch. Elas são disparadas em paralelo.
+    const promiseQtdVendas = fetch(`${API_URL}/dados-qt-vendas-hoje`);
+    const promiseClientes = fetch(`${API_URL}/dados-contagem-clientes`);
+    const promiseValorVendas = fetch(`${API_URL}/dados-valor-vendas-hoje`);
+
+    // 4. Usa Promise.all para esperar que TODAS as 3 promessas terminem.
+    Promise.all([promiseQtdVendas, promiseClientes, promiseValorVendas])
+        .then(responses => {
+            // Converte todas as respostas para JSON.
+            return Promise.all(responses.map(res => {
+                if (!res.ok) {
+                    throw new Error('Uma das respostas da API falhou.');
                 }
+                return res.json();
+            }));
+        })
+        .then(data => {
+            // 5. AGORA TEMOS TODOS OS DADOS!
+            // data é um array com os resultados na mesma ordem das promessas.
+            const [dadosQtdVendas, dadosClientes, dadosValorVendas] = data;
 
-                return response.json();
-            })
-            .then(data => {
-                contadorSales.textContent = data.sales_today_count;
-            })
-            .catch(error => {
-                console.error('Erro ao buscar dados de vendas: ', error);
-                contadorSales.textContent = 'Erro';
-            })
-    }
-});
+            // 6. Extrai os valores e faz os cálculos.
+            const qtdVendas = Number(dadosQtdVendas.sales_today_count) || 0;
+            const clientesAtivos = Number(dadosClientes.active_clients_count) || 0;
+            const valorTotal = Number(dadosValorVendas.sales_value_today) || 0;
 
+            let ticketMedio = 0;
+            // Cálculo seguro para não dividir por zero!
+            if (qtdVendas > 0) {
+                ticketMedio = valorTotal / qtdVendas;
+            }
 
+            // 7. ATUALIZA TODOS os elementos do HTML com os dados finais.
+            if(salesCountEl) salesCountEl.textContent = qtdVendas;
+            if(activeClientsEl) activeClientsEl.textContent = clientesAtivos;
 
-// Função para buscar e atualizar o contador de clientes ativos
-document.addEventListener('DOMContentLoaded', function() {
-    const contadorElement = document.getElementById('contador-clientes-ativos');
-
-    if (contadorElement) {
-        
-        contadorElement.textContent = '...';
-
-        fetch(`${API_URL}/dados-contagem-clientes`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Falha na resposta da API');
-                }
-
-                return response.json();
-            })
-            .then(data => {
-                contadorElement.textContent = data.active_clients_count;
-            })
-            .catch(error => {
-                console.error('Erro ao buscar dados dos clientes: ', error);
-                contadorElement.textContent = 'Erro';
+            if(salesValueEl) salesValueEl.textContent = valorTotal.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
             });
+
+            if(ticketMedioEl) ticketMedioEl.textContent = ticketMedio.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            });
+        })
+        .catch(error => {
+            // 8. Se QUALQUER uma das chamadas falhar, este bloco é executado.
+            console.error('Erro ao buscar dados do dashboard:', error);
+            if(salesCountEl) salesCountEl.textContent = 'Erro!';
+            if(activeClientsEl) activeClientsEl.textContent = 'Erro!';
+            if(salesValueEl) salesValueEl.textContent = 'Erro!';
+            if(ticketMedioEl) ticketMedioEl.textContent = 'Erro!';
+        });
+}
+
+const salesCtx = document.getElementById('salesChart').getContext('2d');
+const salesChart = new Chart(salesCtx, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [{
+            label: 'Vendas',
+            data: [],
+            borderColor: '#8e44ad',
+            backgroundColor: 'rgba(142, 68, 173, 0.1)',
+            tension: 0.4,
+            fill: true
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y:{
+                beginAtZero: true,
+                ticks: {
+                    callback: function(value) {
+                        return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                    }
+                }
+            }
+        }
     }
 });
+
+function fetchSalesChartData() {
+    fetch(`${API_URL}/dados-grafico-vendas`)
+        .then(response => response.json())
+        .then(chartData => {
+
+            salesChart.data.labels = chartData.labels;
+            salesChart.data.datasets[0].data = chartData.data;
+
+            salesChart.update();
+        })
+        .catch(error => {
+            console.error('Erro ao buscar dados do gráfico de vendas:', error);
+        });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM carregado. Iniciando busca de dados para o dashboard...');
+    
+    fetchAllDashboardData();
+    fetchSalesChartData();
+});
+
 
 // Configuração do gráfico de linha
-const salesCtx = document.getElementById('salesChart').getContext('2d');
+/*const salesCtx = document.getElementById('salesChart').getContext('2d');
     const salesChart = new Chart(salesCtx, {
         type: 'line',
         data: {
@@ -89,7 +159,7 @@ const salesCtx = document.getElementById('salesChart').getContext('2d');
                 }
             }
         }
-    });
+    });*/
 
     // Configuração do gráfico de produtos
     const productsCtx = document.getElementById('productsChart').getContext('2d');

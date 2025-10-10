@@ -490,3 +490,70 @@
       opacity: 0;
     }
   }
+/* Subm
+enu Styles */
+.menu-item.dropdown {
+    position: relative;
+}
+
+.submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background-color: #00695c;
+    min-width: 180px;
+    box-shadow: var(--shadow-md);
+    border-radius: var(--border-radius);
+    display: none;
+    z-index: 1000;
+    padding: 8px 0;
+}
+
+.sidebar:hover .menu-item.dropdown:hover .submenu {
+    display: block;
+}
+
+.submenu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    color: white;
+    text-decoration: none;
+    transition: background-color var(--transition-speed);
+    border-radius: var(--border-radius);
+    margin: 2px;
+}
+
+.submenu-item:hover,
+.submenu-item.active {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.submenu-icon {
+    margin-right: 12px;
+    font-size: 16px;
+    min-width: 20px;
+}
+
+/* Ajuste para quando a sidebar não está expandida */
+.sidebar:not(:hover) .menu-item.dropdown.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Indicador visual para dropdown */
+.menu-item.dropdown::after {
+    content: '▶';
+    position: absolute;
+    right: 15px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity var(--transition-speed);
+}
+
+.sidebar:hover .menu-item.dropdown::after {
+    opacity: 0.7;
+}/* 
+Garantir que o submenu apareça sempre que necessário */
+.sidebar:hover .submenu {
+    display: block;
+}
