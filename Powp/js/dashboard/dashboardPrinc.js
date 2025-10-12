@@ -121,6 +121,100 @@ document.addEventListener('DOMContentLoaded', function() {
     
     fetchAllDashboardData();
     fetchSalesChartData();
+
+    //Gráfico de Vendas
+    const salesCtx = document.getElementById('salesChart').getContext('2d');
+    const chartFilter = document.getElementById('chartFilter');
+
+    async function updateSalesChart(period = 'today') {
+        try {
+            // Mostra um feedback de carregamento (opcional, mas bom para UX)
+            // Aqui você poderia mostrar um spinner/loading
+            
+            const response = await fetch(`/api/sales-comparison?period=${period}`);
+            if (!response.ok) {
+                throw new Error('Falha ao buscar dados de vendas.');
+            }
+            const chartData = await response.json();
+
+            // Se o gráfico ainda não foi criado, cria ele.
+            if (!salesChart) {
+                initializeChart(chartData);
+            } else {
+                // Se já existe, apenas atualiza os dados.
+                salesChart.data.labels = chartData.labels;
+                salesChart.data.datasets[0].data = chartData.data;
+                salesChart.update();
+            }
+
+        } catch (error) {
+            console.error("Erro ao atualizar o gráfico de vendas:", error);
+            // Aqui você poderia mostrar uma mensagem de erro no lugar do gráfico
+        }
+    }
+
+    function initializeChart(initialData) {
+        salesChart = new Chart(salesCtx, {
+            type: 'line', // Gráfico de linha é ideal para visualizar vendas ao longo do tempo
+            data: {
+                labels: initialData.labels,
+                datasets: [{
+                    label: 'Vendas (R$)',
+                    data: initialData.data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.1 // Deixa a linha levemente curvada
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            // Formata o eixo Y para parecer com dinheiro
+                            callback: function(value, index, values) {
+                                return 'R$ ' + value.toLocaleString('pt-BR');
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false // O label no dataset já é suficiente
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(context.parsed.y);
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Adiciona o listener para o filtro de período
+    chartFilter.addEventListener('change', (event) => {
+        const selectedPeriod = event.target.value;
+        updateSalesChart(selectedPeriod);
+    });
+
+    // --- INICIALIZAÇÃO ---
+
+    // Carrega os dados do gráfico pela primeira vez com o período padrão ('today')
+    updateSalesChart('today');
 });
 
 

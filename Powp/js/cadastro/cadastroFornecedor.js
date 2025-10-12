@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    //Seleção de elementos do DOM
     const newSupplierBtn = document.getElementById('new-supplier-btn');
     const supplierModal = document.getElementById('supplier-modal');
     const closeModalBtns = document.querySelectorAll('.close-modal, #cancel-btn');
@@ -8,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveButton = document.getElementById('save-btn');
     const modalTitle = document.getElementById('modal-title');
     
+    //Limpa o formulário e abre o modal para um novo cadastro
     const openNewSupplierModal = () => {
         supplierForm.reset();
         modalTitle.textContent = 'Novo Fornecedor:';
@@ -16,11 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
         supplierModal.style.display = 'block'
     }
 
+    //Fecha o Modal
     const closeModal = () => {
         supplierModal.style.display = 'none';
     };
 
-
+    //Busca o endereço a partir de um CEP usando a API ViaCEP.
     const fetchAddressByCep = async (cep) => {
         try {
             const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
@@ -49,4 +52,59 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    //Envia os dados do formulário para a API para criar um novo fornecedor.
+    const handleFormSubmit= async (event) => {
+        event.preventDefault();
+
+        // Desabilita o botão para evitar cliques múltiplos
+        saveButton.disable = true;
+        saveButton.textContent = 'Salvando...';
+
+        const formData = new FormData(supplierForm);
+        const supplierData = Object.fromEntries(formData.entries());
+
+        //URL da api
+        const apiUrl = '/api/fornecedores';
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(suppliersData),
+            });
+
+            const result = await response.json();
+
+            // Se a resposta não for de sucesso (status 2xx)
+            if (!response.ok) {
+                // Monta uma mensagem de erro com as validações do Laravel
+                let errorMessage = result.message || 'Ocorreu um erro desconhecido.';
+                if(result.errors) {
+                    errorMessage += '\n\nErrors:\n';
+                    for (const field in result.errors) {
+                        errorMessage += `- ${result.errors[field].join(', ')}\n`;
+                    }
+                }
+                throw new Error(errorMessage);
+            }
+
+            alert('Fornecedor cadastrado com sucesso!');
+            closeModal();
+        } catch (error) {
+            console.error('Falha ao cadastrar fornecedor: ', error);
+            alert(`Erro: ${error.message}`);
+        } finally {
+            // Reabilita o botão, independentemente do resultado
+            saveButton.disable = false;
+            saveButton.textContent = 'Salvar';
+        }
+    };
+
+    //Abrir o modal
+    newSupplierBtn.addEventListener('click', openNewSupplierModal);
+
+    closeModalBtns.forEach(btn)
 })
