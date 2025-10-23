@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const productsChart = new Chart(productsCtx, {
         type: 'doughnut',
         data: {
-            labels: ['Placa Mãe B450-M', 'SSD 240gb Kingston', 'Caneta Bic Azul', 'Papel Chamex', 'Beb. 51 ICE'],
+            labels: ['Arroz Tipo 1', 'Acçúcar Refinado - 5kg', 'Caneta Bic Azul', 'Papel Chamex', 'Oleo de Soja'],
             datasets: [{
                 data: [25, 20, 15, 20, 20],
                 backgroundColor: [
