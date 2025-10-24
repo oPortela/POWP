@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    //Seleção de elementos do DOM
+    //  Seleção de elementos 
     const newSupplierBtn = document.getElementById('new-supplier-btn');
     const supplierModal = document.getElementById('supplier-modal');
     const closeModalBtns = document.querySelectorAll('.close-modal, #cancel-btn');
@@ -9,24 +9,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveButton = document.getElementById('save-btn');
     const modalTitle = document.getElementById('modal-title');
     
+    //  Funções 
+
     //Limpa o formulário e abre o modal para um novo cadastro
     const openNewSupplierModal = () => {
         supplierForm.reset();
-        modalTitle.textContent = 'Novo Fornecedor:';
-        saveButton.disable = false;
+        modalTitle.textContent = 'Novo Fornecedor';
+        saveButton.disabled = false; 
         saveButton.textContent = 'Salvar';
-        supplierModal.style.display = 'block'
-    }
+        supplierModal.classList.add('show');
+    };
 
     //Fecha o Modal
     const closeModal = () => {
-        supplierModal.style.display = 'none';
+        supplierModal.classList.remove('show');
     };
 
     //Busca o endereço a partir de um CEP usando a API ViaCEP.
     const fetchAddressByCep = async (cep) => {
+        const cleanCep = cep.replace(/\D/g, '');
+
+        if (cleanCep.length !== 8) {
+            return; 
+        }
+
         try {
-            const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+            const response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
 
             if (!response.ok) {
                 throw new Error('Não foi possivel consultar o CEP.');
@@ -42,29 +50,26 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('endereco-logradouro').value = addressData.logradouro;
             document.getElementById('endereco-bairro').value = addressData.bairro;
             document.getElementById('endereco-cidade').value = addressData.localidade;
-            document.getElementById('endereco-uf').value = addressData.uf;
-
+            document.getElementById('endereco-estado').value = addressData.uf;
             document.getElementById('endereco-numero').focus();
 
         } catch (error) {
             console.error('Erro ao buscar CEP: ', error);
             alert(error.message);
         }
-    }
+    };
 
-    //Envia os dados do formulário para a API para criar um novo fornecedor.
-    const handleFormSubmit= async (event) => {
+    //Envia os dados do formulário para a API.
+    const handleFormSubmit = async (event) => {
         event.preventDefault();
 
-        // Desabilita o botão para evitar cliques múltiplos
-        saveButton.disable = true;
+        saveButton.disabled = true;
         saveButton.textContent = 'Salvando...';
 
         const formData = new FormData(supplierForm);
         const supplierData = Object.fromEntries(formData.entries());
 
-        //URL da api
-        const apiUrl = '/api/fornecedores';
+        const apiUrl = 'http://127.0.0.1:8000/api/fornecedores';
 
         try {
             const response = await fetch(apiUrl, {
@@ -73,17 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify(suppliersData),
+                body: JSON.stringify(supplierData),
             });
 
             const result = await response.json();
 
-            // Se a resposta não for de sucesso (status 2xx)
             if (!response.ok) {
-                // Monta uma mensagem de erro com as validações do Laravel
                 let errorMessage = result.message || 'Ocorreu um erro desconhecido.';
                 if(result.errors) {
-                    errorMessage += '\n\nErrors:\n';
+                    errorMessage += '\n\nErros:\n';
                     for (const field in result.errors) {
                         errorMessage += `- ${result.errors[field].join(', ')}\n`;
                     }
@@ -93,18 +96,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
             alert('Fornecedor cadastrado com sucesso!');
             closeModal();
+            // (Talvez aqui você queira recarregar sua tabela de fornecedores)
+            // ex: loadSuppliers();
         } catch (error) {
             console.error('Falha ao cadastrar fornecedor: ', error);
             alert(`Erro: ${error.message}`);
         } finally {
-            // Reabilita o botão, independentemente do resultado
-            saveButton.disable = false;
+            saveButton.disabled = false;
             saveButton.textContent = 'Salvar';
         }
     };
 
+    //  Adicionando Event Listeners 
+
     //Abrir o modal
     newSupplierBtn.addEventListener('click', openNewSupplierModal);
 
-    closeModalBtns.forEach(btn)
-})
+    closeModalBtns.forEach(btn => {
+        btn.addEventListener('click', closeModal);
+    });
+
+    // Salvar o formulário
+    supplierForm.addEventListener('submit', handleFormSubmit);
+
+    cepInput.addEventListener('blur', (event) => {
+        fetchAddressByCep(event.target.value);
+    });
+
+    const cnpjInput = document.getElementById('cnpj');
+
+    cnpjInput.addEventListener('blur', (event) => {
+        fetchCnpjData(event.target.value);
+    });
+
+    supplierModal.addEventListener('click', (event) => {
+        if (event.target === supplierModal) {
+            closeModal();
+        }
+    });
+
+});

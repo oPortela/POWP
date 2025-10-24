@@ -405,6 +405,26 @@
     border-radius: var(--border-radius);
     font-size: 0.9rem;
   }
+
+  .form-group-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .form-group-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+    min-width: 150px;
+  }
+
+  .form-group.cep-group,
+  .form-group.numero-group,
+  .form-group.estado-group {
+    flex: 0.5;
+    min-width: 100px;
+  }
   
   .form-group input:focus {
     outline: none;
