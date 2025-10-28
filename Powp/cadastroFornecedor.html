@@ -104,56 +104,6 @@
         </div>
     </div>
 
-    <!--aside class="sidebar">
-    
-      <!--div class="user-profile">
-        <div class="avatar">
-            <svg viewBox="0 0 24 24" fill="white" width="32" height="32">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
-            </svg>
-        </div>
-      </div>   
-
-      <div class="sidebar-top">
-        <div class="sidebar-item" data-section="dashboard">
-          <a href="dashboard.html">
-            <span class="icon">📊</span>
-            <span class="sidebar-text">Dashboard</span>
-          </a>
-        </div>
-        <div class="sidebar-item" data-section="cadastro">
-          <span class="icon">📝</span>
-          <span class="sidebar-text">Cadastro</span>
-        </div>
-        <div class="sidebar-item" data-section="financeiro">
-          <span class="icon">💰</span>
-          <span class="sidebar-text">Financeiro</span>
-        </div>
-        <div class="sidebar-item" data-section="estoque">
-          <span class="icon">📦</span>
-          <span class="sidebar-text">Estoque</span>
-        </div>
-        <div class="sidebar-item active" data-section="vendas">
-          <span class="icon">🛍️</span>
-          <span class="sidebar-text">Vendas</span>
-        </div>
-        <div class="sidebar-item" data-section="arquivos">
-          <span class="icon">📁</span>
-          <span class="sidebar-text">Arquivos</span>
-        </div>
-      </div>
-      <div class="sidebar-bottom">
-        <div class="sidebar-item" data-section="settings">
-          <span class="icon">⚙️</span>
-          <span class="sidebar-text">Configurações</span>
-        </div>
-        <div class="sidebar-item" data-section="help">
-          <span class="icon">❓</span>
-          <span class="sidebar-text">Ajuda</span>
-        </div>
-      </div>
-    </aside-->
-
     <main class="main-content">
       <header class="header">
         <div class="search-container">
@@ -196,6 +146,11 @@
           </table>
         </div>
       </section>
+
+      <div class="pagination-controls" id="pagination-controls">
+
+      </div>
+
     </main>
   </div>
 
@@ -294,6 +249,19 @@
           <button type="button" class="btn btn-danger" id="confirm-delete-btn">Excluir</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Modal de Sucesso-->
+  <div class="modal" id="success-modal">
+    <div class="modal-content-simple">
+        
+      <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+        <circle class="success-icon-circle" cx="26" cy="26" r="25" fill="none"/>
+          <path class="success-icon-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+      </svg>
+
+      <h2 id="success-message-text"></h2>
     </div>
   </div>
 
