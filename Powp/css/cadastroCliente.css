@@ -49,63 +49,88 @@
   }
   
   /* Sidebar Styles */
-  .sidebar {
-    width: 56px;
-    height: 100%;
-    background-color: var(--primary-color);
-    color: var(--text-light);
+.sidebar {
+    width: 75px;
+    background-color: #004d40;
+    color: white;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    transition: width var(--transition-speed);
-    overflow: hidden;
-    padding: var(--spacing-2) 0;
-    z-index: 10;
-  }
-  
-  .sidebar:hover {
-    width: 200px;
-  }
-  
-  .sidebar-top, .sidebar-bottom {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-1);
-  }
-  
-  .sidebar-item {
-    display: flex;
     align-items: center;
-    padding: var(--spacing-2) var(--spacing-3);
-    cursor: pointer;
-    transition: background-color var(--transition-speed);
-    white-space: nowrap;
-    border-left: 3px solid transparent;
-  }
-  
-  .sidebar-item:hover {
-    background-color: var(--primary-light);
-  }
-  
-  .sidebar-item.active {
-    background-color: var(--primary-light);
-    border-left: 3px solid var(--accent-color);
-  }
-  
-  .sidebar-item .icon {
+    padding: 20px 0;
+    transition: width 0.3s;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+.sidebar-item .icon {
     min-width: 24px;
     height: 24px;
     margin-right: var(--spacing-3);
-  }
-  
-  .sidebar-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-text {
     opacity: 0;
     transition: opacity var(--transition-speed);
-  }
+}
   
-  .sidebar:hover .sidebar-text {
+.sidebar:hover .sidebar-text {
     opacity: 1;
-  }
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: white;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.3s;
+}
+
+.menu-item:hover, .menu-item.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item svg {
+    margin-right: 15px;
+    min-width: 24px;
+}
+
+.bottom-menu {
+    margin-top: auto;
+    width: 100%;
+}
   
   /* Main Content Styles */
   .main-content {
@@ -222,8 +247,8 @@
     background-color: #d32f2f;
   }
   
-  /* Suppliers Section */
-  .suppliers-section {
+  /* clients Section */
+  .clients-section {
     flex: 1;
     padding: var(--spacing-3);
     overflow: auto;
@@ -236,25 +261,25 @@
     overflow: hidden;
   }
   
-  .suppliers-table {
+  .clients-table {
     width: 100%;
     border-collapse: collapse;
   }
   
-  .suppliers-table th,
-  .suppliers-table td {
+  .clients-table th,
+  .clients-table td {
     padding: var(--spacing-3);
     text-align: left;
     border-bottom: 1px solid var(--border-color);
   }
   
-  .suppliers-table th {
+  .clients-table th {
     background-color: var(--background-light);
     font-weight: 600;
     color: var(--text-dark);
   }
   
-  .suppliers-table tbody tr:hover {
+  .clients-table tbody tr:hover {
     background-color: rgba(0, 77, 64, 0.05);
   }
   
@@ -380,6 +405,26 @@
     border-radius: var(--border-radius);
     font-size: 0.9rem;
   }
+
+  .form-group-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .form-group-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+    min-width: 150px;
+  }
+
+  .form-group.cep-group,
+  .form-group.numero-group,
+  .form-group.estado-group {
+    flex: 0.5;
+    min-width: 100px;
+  }
   
   .form-group input:focus {
     outline: none;
@@ -393,6 +438,115 @@
     margin-top: var(--spacing-4);
     margin-bottom: 0;
   }
+
+/* ============================================= */
+/* ESTILOS DO MODAL DE SUCESSO                  */
+/* ============================================= */
+
+/* O conteúdo do modal de sucesso, menor e mais simples */
+.modal-content-simple {
+  background-color: #fff;
+  border-radius: var(--border-radius, 8px); /* Usa sua variável ou 8px */
+  padding: 48px 32px;
+  width: 400px; /* Largura fixa */
+  max-width: 90%;
+  box-shadow: var(--shadow-lg, 0 10px 25px rgba(0,0,0,0.1));
+  text-align: center;
+  
+  /* Animação de entrada */
+  animation: slideIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.modal-content-simple h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #333;
+  margin-top: 24px;
+}
+
+/* --- Estilos do Ícone de Check Verde --- */
+.success-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 3;
+  stroke: #fff; /* Cor do "check" (branco) */
+  stroke-miterlimit: 10;
+  margin: 0 auto;
+  box-shadow: inset 0px 0px 0px #4CAF50; /* Círculo verde */
+  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+}
+
+.success-icon-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 3;
+  stroke-miterlimit: 10;
+  stroke: #4CAF50; /* Cor da borda do círculo */
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.success-icon-check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+/* Animações do SVG */
+@keyframes stroke {
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes scale {
+  0%, 100% { transform: none; }
+  50% { transform: scale3d(1.1, 1.1, 1); }
+}
+@keyframes fill {
+  100% { box-shadow: inset 0px 0px 0px 40px #4CAF50; }
+}
+
+  /*Pagination */
+.pagination-controls {
+  display: flex;            
+  justify-content: center;  
+  align-items: center;      
+  width: 100%;              
+  padding: 24px 0;          
+  gap: 12px;                
+}
+
+.pagination-controls span {
+  font-size: 0.9rem;
+  color: #333; 
+  background: none;
+  border: none;
+  padding: 8px 12px;
+}
+
+.pagination-controls button {
+  background-color: var(--primary-color); 
+  color: var(--background-white);
+  border: 1px solid #ccc;
+  border-radius: 6px;        
+  padding: 8px 16px;
+  font-family: 'Inter', sans-serif; 
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.pagination-controls button:not(:disabled):hover {
+  background-color: var(--primary-light);
+}
+
+.pagination-controls button:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+  background-color: #f9f9f9;
+}
   
   /* Toast Notification */
   .toast {
@@ -418,6 +572,34 @@
   
   .toast.hidden {
     display: none;
+  }
+
+  /*Estilos dos botões de edição e exclusao*/
+  .btn-icon {
+    background: none;
+    border: none;
+    padding: 4px;
+    margin: 0 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #555; 
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .btn-icon:hover {
+    background-color: #f0f0f0;
+  }
+
+  .btn-icon.btn-edit:hover {
+    color: var(--primary-color); 
+  }
+
+  .btn-icon.btn-delete:hover {
+    color: #dc3545; 
+  }
+
+  .btn-icon svg {
+    pointer-events: none;
   }
   
   /* Animations */
@@ -448,8 +630,8 @@
       width: 100%;
     }
     
-    .suppliers-table th,
-    .suppliers-table td {
+    .clients-table th,
+    .clients-table td {
       padding: var(--spacing-2);
     }
     
@@ -465,3 +647,70 @@
       opacity: 0;
     }
   }
+/* Subm
+enu Styles */
+.menu-item.dropdown {
+    position: relative;
+}
+
+.submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background-color: #00695c;
+    min-width: 180px;
+    box-shadow: var(--shadow-md);
+    border-radius: var(--border-radius);
+    display: none;
+    z-index: 1000;
+    padding: 8px 0;
+}
+
+.sidebar:hover .menu-item.dropdown:hover .submenu {
+    display: block;
+}
+
+.submenu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    color: white;
+    text-decoration: none;
+    transition: background-color var(--transition-speed);
+    border-radius: var(--border-radius);
+    margin: 2px;
+}
+
+.submenu-item:hover,
+.submenu-item.active {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.submenu-icon {
+    margin-right: 12px;
+    font-size: 16px;
+    min-width: 20px;
+}
+
+/* Ajuste para quando a sidebar não está expandida */
+.sidebar:not(:hover) .menu-item.dropdown.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Indicador visual para dropdown */
+.menu-item.dropdown::after {
+    content: '▶';
+    position: absolute;
+    right: 15px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity var(--transition-speed);
+}
+
+.sidebar:hover .menu-item.dropdown::after {
+    opacity: 0.7;
+}/* 
+Garantir que o submenu apareça sempre que necessário */
+.sidebar:hover .submenu {
+    display: block;
+}

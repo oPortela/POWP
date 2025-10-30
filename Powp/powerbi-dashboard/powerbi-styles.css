@@ -1,0 +1,247 @@
+/* Power BI Dashboard Styles */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-4);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.header-left h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.header-left p {
+  margin: 4px 0 0 0;
+  opacity: 0.9;
+  font-size: 0.9rem;
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.header-actions .btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.header-actions .btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.header-actions .btn-primary {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.header-actions .btn-primary:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Power BI Container */
+.powerbi-container {
+  flex: 1;
+  padding: var(--spacing-3);
+  background-color: var(--background-light);
+  overflow: hidden;
+}
+
+.powerbi-wrapper {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Loading Placeholder */
+.loading-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-muted);
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border-color);
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--spacing-3);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Power BI Placeholder */
+.powerbi-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: var(--spacing-6);
+  text-align: center;
+}
+
+.placeholder-content {
+  max-width: 500px;
+}
+
+.placeholder-content svg {
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-4);
+}
+
+.placeholder-content h3 {
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-3);
+  font-size: 1.5rem;
+}
+
+.placeholder-content p {
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-3);
+  line-height: 1.6;
+}
+
+.placeholder-content ol {
+  text-align: left;
+  margin-bottom: var(--spacing-4);
+  color: var(--text-muted);
+}
+
+.placeholder-content ol li {
+  margin-bottom: var(--spacing-1);
+}
+
+/* Power BI Iframe */
+#powerbi-iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+/* Instructions Modal */
+.instructions-modal {
+  max-width: 700px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.instruction-step {
+  margin-bottom: var(--spacing-5);
+  padding-bottom: var(--spacing-4);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.instruction-step:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.instruction-step h3 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-2);
+  font-size: 1.2rem;
+}
+
+.instruction-step p {
+  margin-bottom: var(--spacing-2);
+  color: var(--text-dark);
+}
+
+.instruction-step ul,
+.instruction-step ol {
+  margin-bottom: var(--spacing-2);
+  padding-left: var(--spacing-4);
+}
+
+.instruction-step li {
+  margin-bottom: var(--spacing-1);
+  color: var(--text-muted);
+}
+
+.instruction-step pre {
+  background-color: var(--background-light);
+  padding: var(--spacing-3);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  overflow-x: auto;
+  margin: var(--spacing-2) 0;
+}
+
+.instruction-step code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: var(--primary-dark);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-3);
+  }
+  
+  .header-actions {
+    justify-content: center;
+  }
+  
+  .powerbi-container {
+    padding: var(--spacing-2);
+  }
+  
+  .placeholder-content {
+    padding: var(--spacing-3);
+  }
+  
+  .instructions-modal {
+    margin: var(--spacing-2);
+    max-width: calc(100vw - 32px);
+  }
+}
+
+/* Fullscreen mode */
+.fullscreen-mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background: white;
+}
+
+.fullscreen-mode .powerbi-wrapper {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Success state */
+.powerbi-loaded .loading-placeholder {
+  display: none;
+}
+
+.powerbi-loaded .powerbi-placeholder {
+  display: none;
+}
+
+.powerbi-loaded #powerbi-iframe {
+  display: block;
+}

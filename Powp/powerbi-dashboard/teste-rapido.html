@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teste Rápido - Power BI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    
+    .header {
+      background: #004d40;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .content {
+      padding: 20px;
+    }
+    
+    .powerbi-container {
+      width: 100%;
+      height: 600px;
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .powerbi-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #666;
+      text-align: center;
+    }
+    
+    .controls {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .btn {
+      background: #004d40;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 0 5px;
+    }
+    
+    .btn:hover {
+      background: #00695c;
+    }
+    
+    .url-input {
+      width: 100%;
+      max-width: 600px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin: 10px 0;
+    }
+    
+    .instructions {
+      background: #e8f5e8;
+      border: 1px solid #4caf50;
+      border-radius: 4px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    
+    .example-urls {
+      background: #fff3e0;
+      border: 1px solid #ff9800;
+      border-radius: 4px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    
+    .example-urls h4 {
+      margin-top: 0;
+      color: #e65100;
+    }
+    
+    .example-url {
+      background: #f5f5f5;
+      padding: 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+      word-break: break-all;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+    
+    .example-url:hover {
+      background: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 Teste Rápido - Power BI Integration</h1>
+      <p>Use esta página para testar rapidamente a integração com seu Power BI</p>
+    </div>
+    
+    <div class="content">
+      <div class="instructions">
+        <h3>📋 Como usar:</h3>
+        <ol>
+          <li>Cole a URL de incorporação do seu Power BI no campo abaixo</li>
+          <li>Clique em "Carregar Dashboard"</li>
+          <li>Se funcionar aqui, funcionará no sistema principal</li>
+        </ol>
+      </div>
+      
+      <div class="controls">
+        <input 
+          type="text" 
+          id="powerbi-url" 
+          class="url-input" 
+          placeholder="Cole aqui a URL de incorporação do seu Power BI..."
+        />
+        <br>
+        <button class="btn" onclick="loadDashboard()">📊 Carregar Dashboard</button>
+        <button class="btn" onclick="clearDashboard()">🗑️ Limpar</button>
+        <button class="btn" onclick="testExample()">🧪 Testar Exemplo</button>
+      </div>
+      
+      <div class="example-urls">
+        <h4>📝 Exemplos de URLs (clique para testar):</h4>
+        <div class="example-url" onclick="loadExampleUrl(this.textContent)">
+          https://app.powerbi.com/view?r=eyJrIjoiYjU5ZTBkYjQtZjBmYy00YjVhLWE3YzYtMWVkZGQzNjBkMmZkIiwidCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsImMiOjV9
+        </div>
+        <p><small>💡 Esta é uma URL de exemplo pública da Microsoft para demonstração</small></p>
+      </div>
+      
+      <div class="powerbi-container">
+        <div class="placeholder" id="placeholder">
+          <h3>🎯 Power BI Dashboard</h3>
+          <p>Cole uma URL de incorporação acima e clique em "Carregar Dashboard"</p>
+          <p><small>O dashboard aparecerá aqui</small></p>
+        </div>
+        <iframe 
+          id="powerbi-iframe" 
+          class="powerbi-iframe" 
+          style="display: none;"
+          title="Power BI Dashboard">
+        </iframe>
+      </div>
+      
+      <div class="instructions">
+        <h3>🔧 Como obter a URL de incorporação:</h3>
+        <ol>
+          <li>Acesse <a href="https://app.powerbi.com" target="_blank">app.powerbi.com</a></li>
+          <li>Abra seu relatório</li>
+          <li>Clique em <strong>"Arquivo"</strong> → <strong>"Incorporar relatório"</strong> → <strong>"Site ou portal"</strong></li>
+          <li>Copie a URL de incorporação</li>
+          <li>Cole aqui para testar</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function loadDashboard() {
+      const url = document.getElementById('powerbi-url').value.trim();
+      const iframe = document.getElementById('powerbi-iframe');
+      const placeholder = document.getElementById('placeholder');
+      
+      if (!url) {
+        alert('Por favor, cole uma URL do Power BI');
+        return;
+      }
+      
+      if (!isValidPowerBIUrl(url)) {
+        alert('URL inválida. Certifique-se de usar uma URL válida do Power BI.');
+        return;
+      }
+      
+      // Mostrar loading
+      placeholder.innerHTML = `
+        <h3>⏳ Carregando...</h3>
+        <p>Aguarde enquanto o dashboard é carregado</p>
+      `;
+      
+      // Carregar iframe
+      iframe.src = url;
+      iframe.style.display = 'block';
+      
+      // Esconder placeholder após um tempo
+      setTimeout(() => {
+        placeholder.style.display = 'none';
+      }, 2000);
+      
+      iframe.onload = function() {
+        console.log('Dashboard carregado com sucesso!');
+      };
+      
+      iframe.onerror = function() {
+        placeholder.style.display = 'flex';
+        placeholder.innerHTML = `
+          <h3>❌ Erro ao carregar</h3>
+          <p>Verifique se a URL está correta e se você tem permissão para acessar o relatório</p>
+        `;
+        iframe.style.display = 'none';
+      };
+    }
+    
+    function clearDashboard() {
+      const iframe = document.getElementById('powerbi-iframe');
+      const placeholder = document.getElementById('placeholder');
+      
+      iframe.src = '';
+      iframe.style.display = 'none';
+      placeholder.style.display = 'flex';
+      placeholder.innerHTML = `
+        <h3>🎯 Power BI Dashboard</h3>
+        <p>Cole uma URL de incorporação acima e clique em "Carregar Dashboard"</p>
+        <p><small>O dashboard aparecerá aqui</small></p>
+      `;
+      
+      document.getElementById('powerbi-url').value = '';
+    }
+    
+    function testExample() {
+      const exampleUrl = 'https://app.powerbi.com/view?r=eyJrIjoiYjU5ZTBkYjQtZjBmYy00YjVhLWE3YzYtMWVkZGQzNjBkMmZkIiwidCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsImMiOjV9';
+      document.getElementById('powerbi-url').value = exampleUrl;
+      loadDashboard();
+    }
+    
+    function loadExampleUrl(url) {
+      document.getElementById('powerbi-url').value = url;
+      loadDashboard();
+    }
+    
+    function isValidPowerBIUrl(url) {
+      if (!url || typeof url !== 'string') return false;
+      
+      const powerBIDomains = [
+        'app.powerbi.com',
+        'msit.powerbi.com',
+        'gov.powerbi.us',
+        'powerbi.microsoft.com'
+      ];
+      
+      try {
+        const urlObj = new URL(url);
+        return powerBIDomains.some(domain => urlObj.hostname.includes(domain));
+      } catch (e) {
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>
