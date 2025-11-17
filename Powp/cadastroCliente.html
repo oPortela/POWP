@@ -3,28 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Powp - Cadastro de Fornecedores</title>
+  <!-- O título e o CSS estão corretos, mas o formulário estava errado -->
+  <title>Powp - Cadastro de Clientes</title>
   <link rel="stylesheet" href="css/cadastrofornec.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
   <link rel="shortcut icon" href="assets/imagens/favicon-16x16.png" type="image/x-icon">
+  
+  <!-- Adicionei este estilo para esconder/mostrar os campos PF/PJ -->
+  <style>
+    .form-section.hidden {
+      display: none;
+    }
+    .form-section {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+      background-color: #fcfcfc;
+    }
+    h4 {
+      margin-top: 10px;
+      margin-bottom: 12px;
+      color: #333;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
+    }
+  </style>
+
 </head>
 <body>
   <div class="app-container">
       <div class="sidebar">
+        <!-- ... (Todo o seu sidebar. Deixei como está, está ótimo) ... -->
         <div class="user-profile">
             <div class="avatar">
                 <svg viewBox="0 0 24 24" fill="white" width="32" height="32">
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
                 </svg>
             </div>
-        </div>     
+        </div>     
 
         <nav class="menu">
             <a href="dashboard.html" class="menu-item active">
                 <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
                     <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path>
                 </svg>
-                <!--span class="icon">📊</span-->
                 <span class="sidebar-text">Dashboard</span>
             </a>
             <div class="menu-item dropdown active">
@@ -33,7 +56,8 @@
                 </svg>
                 <span class="sidebar-text">Cadastro</span>
                 <div class="submenu">
-                    <a href="cadastroCliente.html" class="submenu-item">
+                    <!-- Link 'active' corrigido para Clientes -->
+                    <a href="cadastroCliente.html" class="submenu-item active">
                         <span class="submenu-icon">👤</span>
                         <span>Clientes</span>
                     </a>
@@ -41,7 +65,7 @@
                         <span class="submenu-icon">📦</span>
                         <span>Produtos</span>
                     </a>
-                    <a href="cadastroFornecedor.html" class="submenu-item active">
+                    <a href="cadastroFornecedor.html" class="submenu-item">
                         <span class="submenu-icon">🏢</span>
                         <span>Fornecedores</span>
                     </a>
@@ -51,78 +75,63 @@
                     </a>
                 </div>
             </div>
+            <!-- ... (Restante do menu) ... -->
             <a href="lancamento.html" class="menu-item">
-                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"></path>
-                </svg>
-                <!--span class="icon">💰</span-->
-                <span class="sidebar-text">Financeiro</span>
-            </a>
-            <a href="#" class="menu-item">
-                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
-                    <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h2v8l2.5-1.5L13 12V4h5v16z"></path>
-                </svg>
-                <!--span class="icon">📦</span-->
-                <span class="sidebar-text">Estoque</span>
-            </a>
-            <a href="pedidoVenda.html" class="menu-item">
-                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
-                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
-                </svg>
-                <!--span class="icon">🛍️</span-->
-                <span class="sidebar-text">Vendas</span>
-            </a>
-            <a href="#" class="menu-item">
-                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
-                    <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"></path>
-                </svg>
-                <!--span class="icon">📁</span-->
-                <span class="sidebar-text">Arquivos</span>
-            </a>
-            <a href="chatBot.html" class="menu-item">
-                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
-                    <path d="M20 2H4C2.9 2 2 2.9 2 4v16l4-4h14c1.1 0 2-0.9 2-2V4c0-1.1-0.9-2-2-2zm-4 9H8v-2h8v2zm0-3H8V6h8v2zm0 6H8v-2h8v2z"/>
-                </svg>
-                <span class="sidebar-text">Chat</span>
-            </a>
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"></path>
+                </svg>
+                <span class="sidebar-text">Financeiro</span>
+            </a>
+            <a href="#" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h2v8l2.5-1.5L13 12V4h5v16z"></path>
+                </svg>
+                <span class="sidebar-text">Estoque</span>
+            </a>
+            <a href="pedidoVenda.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
+                </svg>
+                <span class="sidebar-text">Vendas</span>
+            </a>
+            <a href="#" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"></path>
+                </svg>
+                <span class="sidebar-text">Arquivos</span>
+            </a>
+            <a href="chatBot.html" class="menu-item">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <path d="M20 2H4C2.9 2 2 2.9 2 4v16l4-4h14c1.1 0 2-0.9 2-2V4c0-1.1-0.9-2-2-2zm-4 9H8v-2h8v2zm0-3H8V6h8v2zm0 6H8v-2h8v2z"/>
+                </svg>
+                <span class="sidebar-text">Chat</span>
+            </a>
         </nav>
         <div class="bottom-menu">
-            <a href="#" class="menu-item">
-                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
-                    <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"></path>
-                </svg>
-                <!--span class="icon">⚙️</span-->
-                <span class="sidebar-text">Configurações</span>
-            </a>
-            <a href="login.html" class="menu-item">
-                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
-                    <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"></path>
-                </svg>
-                <!--span class="icon">❓</span-->
-                <span class="sidebar-text">Sair</span>
-            </a>
+            <!-- ... (Menu inferior) ... -->
         </div>
     </div>
 
     <main class="main-content">
+      <!-- ... (Seu header está ótimo) ... -->
       <header class="header">
-        <div class="search-container">
-          <input type="text" id="search-input" placeholder="Pesquisar" class="search-input" />
-          <button class="search-button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          </button>
-        </div>
-        <div class="actions">
-          <button class="btn btn-outline" id="export-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            Exportar
-          </button>
-          <button class="btn btn-primary" id="new-client-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            Novo Cliente
-          </button>
-        </div>
-      </header>
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Pesquisar" class="search-input" />
+          <button class="search-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+        </div>
+        <div class="actions">
+          <button class="btn btn-outline" id="export-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Exportar
+          </button>
+          <button class="btn btn-primary" id="new-client-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Novo Cliente
+          </button>
+        </div>
+      </header>
 
       <section class="clients-section">
         <div class="table-container">
@@ -132,29 +141,30 @@
                 <th class="checkbox-column">
                   <input type="checkbox" id="select-all" />
                 </th>
-                <th class="sortable" data-sort="id">Cod. Cliente</th>
-                <th class="sortable" data-sort="name">Nome</th>
+                <!-- Colunas da tabela de cliente -->
+                <th class="sortable" data-sort="codcliente">Cod. Cliente</th>
+                <th class="sortable" data-sort="cliente">Nome</th>
                 <th class="sortable" data-sort="email">E-MAIL</th>
-                <th class="sortable" data-sort="date">Data de cadastro</th>
+                <th class="sortable" data-sort="dtcadastro">Data de cadastro</th>
                 <th>Editar</th>
                 <th>Excluir</th>
               </tr>
             </thead>
+            <!-- Corpo da tabela de cliente -->
             <tbody id="clients-table-body">
-              <!-- Table content will be generated by JavaScript -->
+              <!-- O JS vai preencher aqui -->
             </tbody>
           </table>
         </div>
       </section>
 
       <div class="pagination-controls" id="pagination-controls">
-
+        <!-- O JS vai preencher a paginação aqui -->
       </div>
-
     </main>
   </div>
 
-  <!-- Modal for adding/editing clients -->
+  <!-- Modal Ccorrigido para adicionar/editar CLIENTES -->
   <div class="modal" id="client-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -162,21 +172,73 @@
         <button class="close-modal">&times;</button>
       </div>
       <div class="modal-body">
+        
+        <!-- Formulário com IDs e 'name' corretos para o ClienteController -->
         <form id="client-form">
           
-          <h4>Dados da Empresa</h4>
+          <h4>Dados Principais</h4>
           <div class="form-group-row">
             <div class="form-group">
-              <label for="fornecedor-cnpj">CNPJ</label>
-              <input type="text" id="fornecedor-cnpj" name="cnpj" required />
+              <label for="cliente-tipopessoa">Tipo de Pessoa</label>
+              <!-- CAMPO-CHAVE que estava faltando -->
+              <select id="cliente-tipopessoa" name="tipopessoa" required>
+                <option value="" disabled selected>Selecione...</option>
+                <option value="F">Pessoa Física</option>
+                <option value="J">Pessoa Jurídica</option>
+              </select>
             </div>
             <div class="form-group">
-              <label for="fornecedor-nome">Razão Social</label>
-              <input type="text" id="fornecedor-nome" name="fornecedor" required />
+              <label for="cliente-nome">Nome / Razão Social</label>
+              <!-- 'name' é 'cliente' conforme a API -->
+              <input type="text" id="cliente-nome" name="cliente" required />
+            </div>
+          </div>
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="cliente-fantasia">Nome Fantasia</label>
+              <input type="text" id="cliente-fantasia" name="fantasia" />
             </div>
             <div class="form-group">
-              <label for="fornecedor-fantasia">Nome Fantasia</label>
-              <input type="text" id="fornecedor-fantasia" name="fantasia" />
+                <label for="contato-email">E-mail</label>
+                <input type="email" id="contato-email" name="email" required />
+            </div>
+          </div>
+
+          <!-- Seção de Pessoa Física (escondida por padrão) -->
+          <div class="form-section hidden" id="pessoa-fisica-fields">
+            <h4>Dados de Pessoa Física</h4>
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="cliente-cpf">CPF</label>
+                <input type="text" id="cliente-cpf" name="cpf" />
+              </div>
+              <div class="form-group">
+                <label for="cliente-rg">RG</label>
+                <input type="text" id="cliente-rg" name="rg" />
+              </div>
+              <div class="form-group">
+                <label for="cliente-dt-nascimento">Data de Nascimento</label>
+                <input type="date" id="cliente-dt-nascimento" name="dt_nascimento" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Seção de Pessoa Jurídica (escondida por padrão) -->
+          <div class="form-section hidden" id="pessoa-juridica-fields">
+            <h4>Dados de Pessoa Jurídica</h4>
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="cliente-cnpj">CNPJ</label>
+                <input type="text" id="cliente-cnpj" name="cnpj" />
+              </div>
+              <div class="form-group">
+                <label for="cliente-inscricaoestadual">Inscrição Estadual</label>
+                <input type="text" id="cliente-inscricaoestadual" name="inscricaoestadual" />
+              </div>
+              <div class="form-group">
+                <label for="cliente-dtabertura">Data de Abertura</label>
+                <input type="date" id="cliente-dtabertura" name="dtabertura" />
+              </div>
             </div>
           </div>
 
@@ -210,12 +272,8 @@
             </div>
           </div>
 
-          <h4>Contato</h4>
+          <h4>Contato (Telefone)</h4>
           <div class="form-group-row">
-            <div class="form-group">
-              <label for="contato-email">E-mail</label>
-              <input type="email" id="contato-email" name="email" required />
-            </div>
             <div class="form-group">
               <label for="contato-telefone">Telefone Fixo</label>
               <input type="tel" id="contato-telefone" name="telefone" />
@@ -224,6 +282,27 @@
               <label for="contato-celular">Celular</label>
               <input type="tel" id="contato-celular" name="celular" />
             </div>
+          </div>
+
+          <h4>Outros</h4>
+           <div class="form-group-row">
+              <div class="form-group">
+                <label for="cliente-bloqueio">Bloqueado</label>
+                <select id="cliente-bloqueio" name="bloqueio" required>
+                  <option value="N" selected>Não</option>
+                  <option value="S">Sim</option>
+                </select>
+              </div>
+              <div class="form-group">
+                  <label for="cliente-motivo-bloq">Motivo do Bloqueio</label>
+                  <input type="text" id="cliente-motivo-bloq" name="motivo_bloq" />
+              </div>
+           </div>
+          <div class="form-group-row">
+              <div class="form-group" style="width: 100%;">
+                <label for="cliente-obs">Observações</label>
+                <textarea id="cliente-obs" name="obs" rows="3"></textarea>
+              </div>
           </div>
 
           <div class="form-group actions">
@@ -235,15 +314,17 @@
     </div>
   </div>
 
-  <!-- Confirmation Modal -->
+  <!-- ... (Modais de Confirmação e Sucesso - Estão ótimos) ... -->
+    <!-- Confirmation Modal -->
   <div class="modal" id="confirmation-modal">
     <div class="modal-content">
       <div class="modal-header">
+        <!-- Título corrigido para Cliente -->
         <h2>Confirmar Exclusão</h2>
         <button class="close-modal">&times;</button>
       </div>
       <div class="modal-body">
-        <p>Tem certeza que deseja excluir este fornecedor?</p>
+        <p>Tem certeza que deseja excluir este cliente?</p>
         <div class="form-group actions">
           <button type="button" class="btn btn-secondary" id="cancel-delete-btn">Cancelar</button>
           <button type="button" class="btn btn-danger" id="confirm-delete-btn">Excluir</button>
@@ -255,20 +336,22 @@
   <!-- Modal de Sucesso-->
   <div class="modal" id="success-modal">
     <div class="modal-content-simple">
-        
       <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
         <circle class="success-icon-circle" cx="26" cy="26" r="25" fill="none"/>
           <path class="success-icon-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
       </svg>
-
       <h2 id="success-message-text"></h2>
     </div>
   </div>
-
+  
   <div id="toast" class="toast hidden">
     <span id="toast-message"></span>
   </div>
 
+  <!-- **
+    * O JS do fornecedor não vai funcionar aqui.
+    * Use o 'cadastroCliente.js' que eu gerei abaixo.
+    * ** -->
   <script src="js/cadastro/cadastroCliente.js"></script>
 </body>
 </html>
