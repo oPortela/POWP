@@ -1,392 +1,324 @@
-// Cadastro de Produtos - JavaScript
-class ProdutoManager {
-  constructor() {
-    this.products = JSON.parse(localStorage.getItem('products')) || [];
-    this.suppliers = JSON.parse(localStorage.getItem('suppliers')) || [
-      { id: 1, name: 'Fornecedor A' },
-      { id: 2, name: 'Fornecedor B' },
-      { id: 3, name: 'Fornecedor C' }
-    ];
-    
-    this.init();
-  }
-
-  init() {
-    this.setupEventListeners();
-    this.loadSuppliers();
-    this.loadProducts();
-    this.generateSampleData();
-  }
-
-  generateSampleData() {
-    if (this.products.length === 0) {
-      const sampleProducts = [
-        {
-          id: 1,
-          code: 'PROD001',
-          name: 'Smartphone Samsung Galaxy A54',
-          category: 'eletronicos',
-          supplier: 'Fornecedor A',
-          brand: 'Samsung',
-          costPrice: 800.00,
-          salePrice: 1200.00,
-          barcode: '7891234567890',
-          unit: 'UN',
-          status: 'ativo',
-          description: 'Smartphone Android com 128GB de armazenamento e câmera de 50MP'
-        },
-        {
-          id: 2,
-          code: 'PROD002',
-          name: 'Camiseta Polo Masculina',
-          category: 'roupas',
-          supplier: 'Fornecedor B',
-          brand: 'Lacoste',
-          costPrice: 25.00,
-          salePrice: 45.00,
-          barcode: '7891234567891',
-          unit: 'UN',
-          status: 'ativo',
-          description: 'Camiseta polo 100% algodão, disponível em várias cores'
-        },
-        {
-          id: 3,
-          code: 'PROD003',
-          name: 'Mesa de Jantar 6 Lugares',
-          category: 'casa',
-          supplier: 'Fornecedor C',
-          brand: 'Móveis Brasil',
-          costPrice: 300.00,
-          salePrice: 500.00,
-          barcode: '7891234567892',
-          unit: 'UN',
-          status: 'ativo',
-          description: 'Mesa de jantar em madeira maciça para 6 pessoas'
-        }
-      ];
-      
-      this.products = sampleProducts;
-      this.saveProducts();
-    }
-  }
-
-  setupEventListeners() {
-    // Botões principais
-    document.getElementById('new-product-btn').addEventListener('click', () => this.openProductModal());
-    document.getElementById('export-btn').addEventListener('click', () => this.exportData());
-
-    // Modal
-    document.querySelectorAll('.close-modal').forEach(btn => {
-      btn.addEventListener('click', (e) => this.closeModal(e.target.closest('.modal')));
-    });
-
-    document.getElementById('cancel-btn').addEventListener('click', () => this.closeModal(document.getElementById('product-modal')));
-
-    // Formulário
-    document.getElementById('product-form').addEventListener('submit', (e) => this.saveProduct(e));
-
-    // Busca
-    document.getElementById('search-input').addEventListener('input', (e) => this.searchProducts(e.target.value));
-
-    // Select all checkbox
-    document.getElementById('select-all').addEventListener('change', (e) => this.selectAllProducts(e.target.checked));
-
-    // Cálculo automático de margem
-    document.getElementById('product-cost-price').addEventListener('input', () => this.calculateMargin());
-    document.getElementById('product-sale-price').addEventListener('input', () => this.calculateMargin());
-  }
-
-  loadSuppliers() {
-    const supplierSelect = document.getElementById('product-supplier');
-    supplierSelect.innerHTML = '<option value="">Selecione um fornecedor</option>';
-    
-    this.suppliers.forEach(supplier => {
-      const option = document.createElement('option');
-      option.value = supplier.name;
-      option.textContent = supplier.name;
-      supplierSelect.appendChild(option);
-    });
-  }
-
-  loadProducts() {
-    const tbody = document.getElementById('products-table-body');
-    tbody.innerHTML = '';
-
-    this.products.forEach(product => {
-      const row = this.createProductRow(product);
-      tbody.appendChild(row);
-    });
-  }
-
-  createProductRow(product) {
-    const row = document.createElement('tr');
-    const margin = this.calculateProductMargin(product.costPrice, product.salePrice);
-    
-    row.innerHTML = `
-      <td><input type="checkbox" class="product-checkbox" data-id="${product.id}"></td>
-      <td>${product.code}</td>
-      <td>
-        <div>
-          <strong>${product.name}</strong>
-          ${product.brand ? `<br><small style="color: #666;">${product.brand}</small>` : ''}
-        </div>
-      </td>
-      <td>${this.getCategoryName(product.category)}</td>
-      <td>${product.supplier}</td>
-      <td>R$ ${product.costPrice.toFixed(2)}</td>
-      <td>R$ ${product.salePrice.toFixed(2)}</td>
-      <td>${margin.toFixed(1)}%</td>
-      <td><span class="status-badge ${product.status === 'ativo' ? 'status-success' : 'status-danger'}">${product.status === 'ativo' ? 'Ativo' : 'Inativo'}</span></td>
-      <td>
-        <button class="btn btn-outline" onclick="produtoManager.editProduct(${product.id})" style="padding: 4px 8px; margin-right: 4px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-          </svg>
-        </button>
-        <button class="btn btn-danger" onclick="produtoManager.deleteProduct(${product.id})" style="padding: 4px 8px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="3 6 5 6 21 6"></polyline>
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-          </svg>
-        </button>
-      </td>
-    `;
-
-    return row;
-  }
-
-  getCategoryName(category) {
-    const categories = {
-      'eletronicos': 'Eletrônicos',
-      'roupas': 'Roupas',
-      'casa': 'Casa e Jardim',
-      'esportes': 'Esportes',
-      'livros': 'Livros',
-      'beleza': 'Beleza e Cuidados',
-      'automotivo': 'Automotivo',
-      'outros': 'Outros'
-    };
-    return categories[category] || category;
-  }
-
-  calculateProductMargin(costPrice, salePrice) {
-    if (costPrice <= 0) return 0;
-    return ((salePrice - costPrice) / costPrice) * 100;
-  }
-
-  calculateMargin() {
-    const costPrice = parseFloat(document.getElementById('product-cost-price').value) || 0;
-    const salePrice = parseFloat(document.getElementById('product-sale-price').value) || 0;
-    
-    const margin = this.calculateProductMargin(costPrice, salePrice);
-    document.getElementById('product-margin').value = margin.toFixed(2);
-  }
-
-  openProductModal(product = null) {
-    const modal = document.getElementById('product-modal');
-    const title = document.getElementById('modal-title');
-    const form = document.getElementById('product-form');
-    
-    if (product) {
-      title.textContent = 'Editar Produto';
-      this.fillProductForm(product);
-    } else {
-      title.textContent = 'Novo Produto';
-      form.reset();
-      document.getElementById('product-code').value = this.generateProductCode();
-      document.getElementById('product-status').value = 'ativo';
-      document.getElementById('product-unit').value = 'UN';
-    }
-    
-    modal.classList.add('show');
-  }
-
-  closeModal(modal) {
-    modal.classList.remove('show');
-  }
-
-  generateProductCode() {
-    const lastProduct = this.products[this.products.length - 1];
-    const lastNumber = lastProduct ? parseInt(lastProduct.code.replace('PROD', '')) : 0;
-    return `PROD${String(lastNumber + 1).padStart(3, '0')}`;
-  }
-
-  fillProductForm(product) {
-    document.getElementById('product-code').value = product.code;
-    document.getElementById('product-name').value = product.name;
-    document.getElementById('product-category').value = product.category;
-    document.getElementById('product-supplier').value = product.supplier;
-    document.getElementById('product-brand').value = product.brand || '';
-    document.getElementById('product-cost-price').value = product.costPrice;
-    document.getElementById('product-sale-price').value = product.salePrice;
-    document.getElementById('product-barcode').value = product.barcode || '';
-    document.getElementById('product-unit').value = product.unit || 'UN';
-    document.getElementById('product-status').value = product.status || 'ativo';
-    document.getElementById('product-description').value = product.description || '';
-    
-    this.calculateMargin();
-  }
-
-  saveProduct(e) {
-    e.preventDefault();
-    
-    const productData = {
-      id: Date.now(),
-      code: document.getElementById('product-code').value,
-      name: document.getElementById('product-name').value,
-      category: document.getElementById('product-category').value,
-      supplier: document.getElementById('product-supplier').value,
-      brand: document.getElementById('product-brand').value,
-      costPrice: parseFloat(document.getElementById('product-cost-price').value),
-      salePrice: parseFloat(document.getElementById('product-sale-price').value),
-      barcode: document.getElementById('product-barcode').value,
-      unit: document.getElementById('product-unit').value,
-      status: document.getElementById('product-status').value,
-      description: document.getElementById('product-description').value,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    };
-
-    // Verificar se é edição ou novo produto
-    const existingIndex = this.products.findIndex(p => p.code === productData.code);
-    
-    if (existingIndex >= 0) {
-      productData.id = this.products[existingIndex].id;
-      productData.createdAt = this.products[existingIndex].createdAt;
-      this.products[existingIndex] = productData;
-    } else {
-      this.products.push(productData);
-    }
-
-    this.saveProducts();
-    this.loadProducts();
-    this.closeModal(document.getElementById('product-modal'));
-    this.showToast('Produto salvo com sucesso!', 'success');
-  }
-
-  editProduct(id) {
-    const product = this.products.find(p => p.id === id);
-    if (product) {
-      this.openProductModal(product);
-    }
-  }
-
-  deleteProduct(id) {
-    if (confirm('Tem certeza que deseja excluir este produto?')) {
-      this.products = this.products.filter(p => p.id !== id);
-      this.saveProducts();
-      this.loadProducts();
-      this.showToast('Produto excluído com sucesso!', 'success');
-    }
-  }
-
-  searchProducts(query) {
-    if (!query.trim()) {
-      this.loadProducts();
-      return;
-    }
-    
-    const filteredProducts = this.products.filter(product => 
-      product.name.toLowerCase().includes(query.toLowerCase()) ||
-      product.code.toLowerCase().includes(query.toLowerCase()) ||
-      product.brand?.toLowerCase().includes(query.toLowerCase()) ||
-      product.supplier.toLowerCase().includes(query.toLowerCase()) ||
-      product.barcode?.includes(query)
-    );
-    
-    this.displayFilteredProducts(filteredProducts);
-  }
-
-  displayFilteredProducts(products) {
-    const tbody = document.getElementById('products-table-body');
-    tbody.innerHTML = '';
-    
-    products.forEach(product => {
-      const row = this.createProductRow(product);
-      tbody.appendChild(row);
-    });
-  }
-
-  selectAllProducts(checked) {
-    const checkboxes = document.querySelectorAll('.product-checkbox');
-    checkboxes.forEach(checkbox => {
-      checkbox.checked = checked;
-    });
-  }
-
-  exportData() {
-    const selectedIds = Array.from(document.querySelectorAll('.product-checkbox:checked'))
-      .map(cb => parseInt(cb.dataset.id));
-    
-    const dataToExport = selectedIds.length > 0 
-      ? this.products.filter(p => selectedIds.includes(p.id))
-      : this.products;
-    
-    const data = {
-      products: dataToExport,
-      exportDate: new Date().toISOString(),
-      totalProducts: dataToExport.length
-    };
-    
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `produtos_${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-    this.showToast(`${dataToExport.length} produto(s) exportado(s) com sucesso!`, 'success');
-  }
-
-  saveProducts() {
-    localStorage.setItem('products', JSON.stringify(this.products));
-  }
-
-  showToast(message, type = 'success') {
-    const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toast-message');
-    
-    toastMessage.textContent = message;
-    toast.className = `toast ${type}`;
-    toast.classList.remove('hidden');
-    
-    setTimeout(() => {
-      toast.classList.add('hidden');
-    }, 3000);
-  }
-}
-
-// Adicionar estilos para status badges se não existirem
-if (!document.querySelector('style[data-product-styles]')) {
-  const style = document.createElement('style');
-  style.setAttribute('data-product-styles', 'true');
-  style.textContent = `
-    .status-badge {
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 500;
-    }
-    
-    .status-success {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    
-    .status-danger {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-  `;
-  document.head.appendChild(style);
-}
-
-// Inicializar quando a página carregar
-let produtoManager;
 document.addEventListener('DOMContentLoaded', () => {
-  produtoManager = new ProdutoManager();
+
+    // --- Seleção de elementos ---
+    const newProductBtn = document.getElementById('new-product-btn');
+    const productModal = document.getElementById('product-modal');
+    const closeModalBtns = document.querySelectorAll('.close-modal, #cancel-btn');
+    const productForm = document.getElementById('product-form');
+    const saveButton = document.getElementById('save-btn');
+    const modalTitle = document.getElementById('modal-title');
+
+    const confirmationModal = document.getElementById('confirmation-modal');
+    const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
+    const confirmeDeleteBtn = document.getElementById('confirm-delete-btn');
+
+    const successModal = document.getElementById('success-modal');
+    const successMessageText = document.getElementById('success-message-text');
+
+    let productIdToDelete = null;
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    let editingProductId = null;
+    
+    const tableBody = document.getElementById('products-table-body');
+
+    // --- Funções ---
+
+    const openNewProductModal = () => {
+        productForm.reset();
+        modalTitle.textContent = 'Novo Produto';
+        saveButton.disabled = false; 
+        editingProductId = null;
+        saveButton.textContent = 'Salvar';
+        productModal.classList.add('show');
+    };
+
+    const showSuccessModal = (message) => {
+        productModal.classList.remove('show');
+        confirmationModal.classList.remove('show');
+        successMessageText.textContent = message;
+        successModal.classList.add('show');
+        setTimeout(() => {
+            successModal.classList.remove('show');
+            loadProducts();
+        }, 2000);
+    };
+
+    const closeModal = () => {
+        productModal.classList.remove('show');
+    };
+
+    const openConfirmationModal = (id) => {
+        productIdToDelete = id;
+        confirmationModal.classList.add('show');
+    };
+
+    const closeConfirmationModal = () => {
+        productIdToDelete = null;
+        confirmationModal.classList.remove('show');
+    };
+
+    const openEditModal = async (id) => {
+        productForm.reset();
+        modalTitle.textContent = 'Carregando dados...';
+        saveButton.disabled = true;
+
+        const apiUrl = `http://127.0.0.1:8000/api/produtos/${id}`;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'GET',
+                headers: {'Accept': 'application/json'}
+            });
+
+            if (!response.ok) throw new Error('Falha ao buscar dados do produto.');
+
+            const product = await response.json();
+
+            document.getElementById('product-code').value = product.codproduto || '';
+            document.getElementById('product-name').value = product.nome || '';
+            document.getElementById('product-category').value = product.categoria || '';
+            document.getElementById('product-supplier').value = product.codfornecedor || '';
+            document.getElementById('product-brand').value = product.marca || '';
+            document.getElementById('product-cost-price').value = product.preco_custo || '';
+            document.getElementById('product-sale-price').value = product.preco_venda || '';
+            document.getElementById('product-barcode').value = product.codigo_barras || '';
+            document.getElementById('product-unit').value = product.unidade || 'UN';
+            document.getElementById('product-status').value = product.status || 'ativo';
+            document.getElementById('product-description').value = product.descricao || '';
+
+            editingProductId = id;
+            modalTitle.textContent = 'Editar Produto';
+            saveButton.disabled = false;
+            productModal.classList.add('show');
+
+        } catch (error) {
+            console.error('Erro ao abrir o modal de edição: ', error);
+            alert(error.message);
+        }
+    };
+
+    const deleteProduct = async () => {
+        if (!productIdToDelete) return;
+
+        confirmeDeleteBtn.disabled = true;
+        confirmeDeleteBtn.textContent = 'Excluindo...';
+
+        const apiUrl = `http://127.0.0.1:8000/api/produtos/${productIdToDelete}`;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'DELETE',
+                headers: {'Accept': 'application/json'}
+            });
+
+            if (!response.ok && response.status !== 204) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Falha ao excluir produto.');
+            }
+
+            showSuccessModal('Produto excluído com sucesso!');
+
+        } catch (error) {
+            console.error('Erro ao excluir: ', error);
+            alert(`Erro: ${error.message}`);
+        } finally {
+            confirmeDeleteBtn.disabled = false;
+            confirmeDeleteBtn.textContent = 'Excluir';
+        }
+    };
+
+    const loadProducts = async () => {
+        tableBody.innerHTML = '<tr><td colspan="10" style="text-align: center;">Carregando...</td></tr>';
+
+        const apiUrl = `http://127.0.0.1:8000/api/produtos?page=${currentPage}&perPage=${itemsPerPage}`;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'GET',
+                headers: {'Accept': 'application/json'}
+            });
+
+            if (!response.ok) {
+                throw new Error(`Falha ao carregar produtos: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            const products = result.data;
+            const totalItems = result.total;
+
+            tableBody.innerHTML = '';
+
+            if (products.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="10" style="text-align: center;">Nenhum produto cadastrado.</td></tr>';
+                renderPagination(totalItems); 
+                return;
+            }
+
+            products.forEach(product => {
+                const tr = document.createElement('tr');
+                const margin = product.preco_venda && product.preco_custo 
+                    ? (((product.preco_venda - product.preco_custo) / product.preco_custo) * 100).toFixed(2) 
+                    : '0.00';
+
+                tr.innerHTML = `
+                    <td class="checkbox-column">
+                        <input type="checkbox" data-id="${product.codproduto}" />
+                    </td>
+                    <td>${product.codproduto}</td>
+                    <td>${product.nome}</td>
+                    <td>${product.categoria || '-'}</td>
+                    <td>${product.fornecedor_nome || '-'}</td>
+                    <td>R$ ${parseFloat(product.preco_custo || 0).toFixed(2)}</td>
+                    <td>R$ ${parseFloat(product.preco_venda || 0).toFixed(2)}</td>
+                    <td>${margin}%</td>
+                    <td><span class="status-badge ${product.status}">${product.status === 'ativo' ? 'Ativo' : 'Inativo'}</span></td>
+                    <td>
+                        <button class="btn-icon btn-edit" data-id="${product.codproduto}" title="Editar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </button>
+                        <button class="btn-icon btn-delete" data-id="${product.codproduto}" title="Excluir">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                            </svg>
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+
+            renderPagination(totalItems);
+
+        } catch (error) {
+            console.error('Erro ao carregar produtos:', error);
+            tableBody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: red;">${error.message}</td></tr>`;
+        }
+    };
+
+    const renderPagination = (totalItems) => {
+        const paginationContainer = document.getElementById('pagination-controls');
+        if (!paginationContainer) return;
+
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        paginationContainer.innerHTML = '';
+
+        const prevButton = document.createElement('button');
+        prevButton.textContent = '« Anterior';
+        prevButton.className = 'btn btn-secondary';
+        prevButton.disabled = (currentPage === 1);
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                loadProducts();
+            }
+        });
+        paginationContainer.appendChild(prevButton);
+
+        const pageInfo = document.createElement('span');
+        pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+        pageInfo.style.margin = '0 10px';
+        paginationContainer.appendChild(pageInfo);
+
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'Próximo »';
+        nextButton.className = 'btn btn-secondary';
+        nextButton.disabled = (currentPage === totalPages);
+        nextButton.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                loadProducts();
+            }
+        });
+        paginationContainer.appendChild(nextButton);
+    };
+
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+        saveButton.disabled = true;
+        
+        const originalButtonText = editingProductId ? 'Atualizar' : 'Salvar';
+        saveButton.textContent = editingProductId ? 'Atualizando...' : 'Salvando...';
+
+        const formData = new FormData(productForm);
+        const productData = Object.fromEntries(formData.entries());
+
+        let apiUrl = 'http://127.0.0.1:8000/api/produtos';
+        let httpMethod = 'POST';
+
+        if (editingProductId) {
+            apiUrl = `http://127.0.0.1:8000/api/produtos/${editingProductId}`;
+            httpMethod = 'PUT';
+        }
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: httpMethod,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(productData),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                let errorMessage = result.message || 'Ocorreu um erro desconhecido.';
+                if(result.errors) {
+                    errorMessage = 'Por favor, corrija os erros:\n'; 
+                    for (const field in result.errors) {
+                        errorMessage += `- ${result.errors[field].join(', ')}\n`;
+                    }
+                }
+                throw new Error(errorMessage);
+            }
+
+            const successMessage = editingProductId ? 'Produto atualizado com sucesso!' : 'Produto cadastrado com sucesso!';
+            showSuccessModal(successMessage);
+            closeModal();
+
+        } catch (error) {
+            console.error('Falha ao salvar produto: ', error);
+            alert(`Erro: ${error.message}`);
+        } finally {
+            saveButton.disabled = false;
+            saveButton.textContent = originalButtonText; 
+            if (httpMethod === 'PUT') {
+                editingProductId = null;
+            }
+        }
+    };
+
+    tableBody.addEventListener('click', (event) => {
+        const deleteButton = event.target.closest('.btn-delete');
+        if (deleteButton) {
+            const id = deleteButton.dataset.id;
+            openConfirmationModal(id);
+        }
+
+        const editButton = event.target.closest('.btn-edit');
+        if (editButton) {
+            const id = editButton.dataset.id;
+            openEditModal(id);
+        }
+    });
+
+    // --- Event Listeners ---
+    newProductBtn.addEventListener('click', openNewProductModal);
+    closeModalBtns.forEach(btn => btn.addEventListener('click', closeModal));
+    productForm.addEventListener('submit', handleFormSubmit);
+    productModal.addEventListener('click', (event) => {
+        if (event.target === productModal) closeModal();
+    });
+    cancelDeleteBtn.addEventListener('click', closeConfirmationModal);
+    confirmeDeleteBtn.addEventListener('click', deleteProduct);
+    confirmationModal.querySelector('.close-modal').addEventListener('click', closeConfirmationModal);
+
+    loadProducts();
 });

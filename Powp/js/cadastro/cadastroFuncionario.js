@@ -1,484 +1,362 @@
-// Cadastro de Funcionários - JavaScript
-class FuncionarioManager {
-  constructor() {
-    this.employees = JSON.parse(localStorage.getItem('employees')) || [];
-    this.init();
-  }
-
-  init() {
-    this.setupEventListeners();
-    this.loadEmployees();
-    this.generateSampleData();
-  }
-
-  generateSampleData() {
-    if (this.employees.length === 0) {
-      const sampleEmployees = [
-        {
-          id: 1,
-          registration: 'FUNC001',
-          name: 'João Silva Santos',
-          cpf: '123.456.789-00',
-          rg: '12.345.678-9',
-          birthDate: '1985-03-15',
-          phone: '(11) 99999-1234',
-          email: 'joao.silva@empresa.com',
-          cep: '01234-567',
-          address: 'Rua das Flores, 123',
-          number: '123',
-          neighborhood: 'Centro',
-          city: 'São Paulo',
-          position: 'gerente',
-          department: 'vendas',
-          hireDate: '2020-01-15',
-          salary: 5000.00,
-          workload: '44h',
-          status: 'ativo',
-          observations: 'Funcionário exemplar com ótimo desempenho'
-        },
-        {
-          id: 2,
-          registration: 'FUNC002',
-          name: 'Maria Oliveira Costa',
-          cpf: '987.654.321-00',
-          rg: '98.765.432-1',
-          birthDate: '1990-07-22',
-          phone: '(11) 88888-5678',
-          email: 'maria.oliveira@empresa.com',
-          cep: '04567-890',
-          address: 'Av. Paulista, 456',
-          number: '456',
-          neighborhood: 'Bela Vista',
-          city: 'São Paulo',
-          position: 'vendedor',
-          department: 'vendas',
-          hireDate: '2021-03-10',
-          salary: 2500.00,
-          workload: '44h',
-          status: 'ativo',
-          observations: 'Vendedora com excelente relacionamento com clientes'
-        },
-        {
-          id: 3,
-          registration: 'FUNC003',
-          name: 'Carlos Roberto Lima',
-          cpf: '456.789.123-00',
-          rg: '45.678.912-3',
-          birthDate: '1988-12-05',
-          phone: '(11) 77777-9012',
-          email: 'carlos.lima@empresa.com',
-          cep: '02345-678',
-          address: 'Rua do Comércio, 789',
-          number: '789',
-          neighborhood: 'Vila Madalena',
-          city: 'São Paulo',
-          position: 'estoquista',
-          department: 'estoque',
-          hireDate: '2019-08-20',
-          salary: 2200.00,
-          workload: '44h',
-          status: 'ativo',
-          observations: 'Responsável pelo controle de estoque'
-        }
-      ];
-      
-      this.employees = sampleEmployees;
-      this.saveEmployees();
-    }
-  }
-
-  setupEventListeners() {
-    // Botões principais
-    document.getElementById('new-employee-btn').addEventListener('click', () => this.openEmployeeModal());
-    document.getElementById('export-btn').addEventListener('click', () => this.exportData());
-
-    // Modal
-    document.querySelectorAll('.close-modal').forEach(btn => {
-      btn.addEventListener('click', (e) => this.closeModal(e.target.closest('.modal')));
-    });
-
-    document.getElementById('cancel-btn').addEventListener('click', () => this.closeModal(document.getElementById('employee-modal')));
-
-    // Formulário
-    document.getElementById('employee-form').addEventListener('submit', (e) => this.saveEmployee(e));
-
-    // Busca
-    document.getElementById('search-input').addEventListener('input', (e) => this.searchEmployees(e.target.value));
-
-    // Select all checkbox
-    document.getElementById('select-all').addEventListener('change', (e) => this.selectAllEmployees(e.target.checked));
-
-    // Máscaras de input
-    this.setupInputMasks();
-
-    // CEP lookup
-    document.getElementById('employee-cep').addEventListener('blur', (e) => this.lookupCEP(e.target.value));
-  }
-
-  setupInputMasks() {
-    // Máscara para CPF
-    document.getElementById('employee-cpf').addEventListener('input', (e) => {
-      let value = e.target.value.replace(/\D/g, '');
-      value = value.replace(/(\d{3})(\d)/, '$1.$2');
-      value = value.replace(/(\d{3})(\d)/, '$1.$2');
-      value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-      e.target.value = value;
-    });
-
-    // Máscara para telefone
-    document.getElementById('employee-phone').addEventListener('input', (e) => {
-      let value = e.target.value.replace(/\D/g, '');
-      value = value.replace(/(\d{2})(\d)/, '($1) $2');
-      value = value.replace(/(\d{5})(\d)/, '$1-$2');
-      e.target.value = value;
-    });
-
-    // Máscara para CEP
-    document.getElementById('employee-cep').addEventListener('input', (e) => {
-      let value = e.target.value.replace(/\D/g, '');
-      value = value.replace(/(\d{5})(\d)/, '$1-$2');
-      e.target.value = value;
-    });
-  }
-
-  async lookupCEP(cep) {
-    const cleanCEP = cep.replace(/\D/g, '');
-    if (cleanCEP.length === 8) {
-      try {
-        const response = await fetch(`https://viacep.com.br/ws/${cleanCEP}/json/`);
-        const data = await response.json();
-        
-        if (!data.erro) {
-          document.getElementById('employee-address').value = data.logradouro;
-          document.getElementById('employee-neighborhood').value = data.bairro;
-          document.getElementById('employee-city').value = data.localidade;
-        }
-      } catch (error) {
-        console.log('Erro ao buscar CEP:', error);
-      }
-    }
-  }
-
-  loadEmployees() {
-    const tbody = document.getElementById('employees-table-body');
-    tbody.innerHTML = '';
-
-    this.employees.forEach(employee => {
-      const row = this.createEmployeeRow(employee);
-      tbody.appendChild(row);
-    });
-  }
-
-  createEmployeeRow(employee) {
-    const row = document.createElement('tr');
-    
-    row.innerHTML = `
-      <td><input type="checkbox" class="employee-checkbox" data-id="${employee.id}"></td>
-      <td>${employee.registration}</td>
-      <td>
-        <div>
-          <strong>${employee.name}</strong>
-          <br><small style="color: #666;">${employee.email}</small>
-        </div>
-      </td>
-      <td>${this.getPositionName(employee.position)}</td>
-      <td>${this.getDepartmentName(employee.department)}</td>
-      <td>${employee.phone}</td>
-      <td>${employee.email}</td>
-      <td>R$ ${employee.salary.toFixed(2)}</td>
-      <td><span class="status-badge ${this.getStatusClass(employee.status)}">${this.getStatusName(employee.status)}</span></td>
-      <td>
-        <button class="btn btn-outline" onclick="funcionarioManager.editEmployee(${employee.id})" style="padding: 4px 8px; margin-right: 4px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-          </svg>
-        </button>
-        <button class="btn btn-danger" onclick="funcionarioManager.deleteEmployee(${employee.id})" style="padding: 4px 8px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="3 6 5 6 21 6"></polyline>
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-          </svg>
-        </button>
-      </td>
-    `;
-
-    return row;
-  }
-
-  getPositionName(position) {
-    const positions = {
-      'gerente': 'Gerente',
-      'vendedor': 'Vendedor',
-      'caixa': 'Caixa',
-      'estoquista': 'Estoquista',
-      'supervisor': 'Supervisor',
-      'assistente': 'Assistente',
-      'analista': 'Analista',
-      'coordenador': 'Coordenador'
-    };
-    return positions[position] || position;
-  }
-
-  getDepartmentName(department) {
-    const departments = {
-      'vendas': 'Vendas',
-      'financeiro': 'Financeiro',
-      'estoque': 'Estoque',
-      'rh': 'Recursos Humanos',
-      'ti': 'Tecnologia da Informação',
-      'marketing': 'Marketing',
-      'administrativo': 'Administrativo'
-    };
-    return departments[department] || department;
-  }
-
-  getStatusName(status) {
-    const statuses = {
-      'ativo': 'Ativo',
-      'inativo': 'Inativo',
-      'ferias': 'Férias',
-      'licenca': 'Licença'
-    };
-    return statuses[status] || status;
-  }
-
-  getStatusClass(status) {
-    const classes = {
-      'ativo': 'status-success',
-      'inativo': 'status-danger',
-      'ferias': 'status-warning',
-      'licenca': 'status-warning'
-    };
-    return classes[status] || 'status-success';
-  }
-
-  openEmployeeModal(employee = null) {
-    const modal = document.getElementById('employee-modal');
-    const title = document.getElementById('modal-title');
-    const form = document.getElementById('employee-form');
-    
-    if (employee) {
-      title.textContent = 'Editar Funcionário';
-      this.fillEmployeeForm(employee);
-    } else {
-      title.textContent = 'Novo Funcionário';
-      form.reset();
-      document.getElementById('employee-registration').value = this.generateEmployeeRegistration();
-      document.getElementById('employee-status').value = 'ativo';
-      document.getElementById('employee-workload').value = '44h';
-      document.getElementById('employee-hire-date').value = new Date().toISOString().split('T')[0];
-    }
-    
-    modal.classList.add('show');
-  }
-
-  closeModal(modal) {
-    modal.classList.remove('show');
-  }
-
-  generateEmployeeRegistration() {
-    const lastEmployee = this.employees[this.employees.length - 1];
-    const lastNumber = lastEmployee ? parseInt(lastEmployee.registration.replace('FUNC', '')) : 0;
-    return `FUNC${String(lastNumber + 1).padStart(3, '0')}`;
-  }
-
-  fillEmployeeForm(employee) {
-    document.getElementById('employee-registration').value = employee.registration;
-    document.getElementById('employee-name').value = employee.name;
-    document.getElementById('employee-cpf').value = employee.cpf;
-    document.getElementById('employee-rg').value = employee.rg || '';
-    document.getElementById('employee-birth-date').value = employee.birthDate || '';
-    document.getElementById('employee-phone').value = employee.phone;
-    document.getElementById('employee-email').value = employee.email;
-    document.getElementById('employee-cep').value = employee.cep || '';
-    document.getElementById('employee-address').value = employee.address || '';
-    document.getElementById('employee-number').value = employee.number || '';
-    document.getElementById('employee-neighborhood').value = employee.neighborhood || '';
-    document.getElementById('employee-city').value = employee.city || '';
-    document.getElementById('employee-position').value = employee.position;
-    document.getElementById('employee-department').value = employee.department;
-    document.getElementById('employee-hire-date').value = employee.hireDate;
-    document.getElementById('employee-salary').value = employee.salary;
-    document.getElementById('employee-workload').value = employee.workload || '44h';
-    document.getElementById('employee-status').value = employee.status || 'ativo';
-    document.getElementById('employee-observations').value = employee.observations || '';
-  }
-
-  saveEmployee(e) {
-    e.preventDefault();
-    
-    const employeeData = {
-      id: Date.now(),
-      registration: document.getElementById('employee-registration').value,
-      name: document.getElementById('employee-name').value,
-      cpf: document.getElementById('employee-cpf').value,
-      rg: document.getElementById('employee-rg').value,
-      birthDate: document.getElementById('employee-birth-date').value,
-      phone: document.getElementById('employee-phone').value,
-      email: document.getElementById('employee-email').value,
-      cep: document.getElementById('employee-cep').value,
-      address: document.getElementById('employee-address').value,
-      number: document.getElementById('employee-number').value,
-      neighborhood: document.getElementById('employee-neighborhood').value,
-      city: document.getElementById('employee-city').value,
-      position: document.getElementById('employee-position').value,
-      department: document.getElementById('employee-department').value,
-      hireDate: document.getElementById('employee-hire-date').value,
-      salary: parseFloat(document.getElementById('employee-salary').value),
-      workload: document.getElementById('employee-workload').value,
-      status: document.getElementById('employee-status').value,
-      observations: document.getElementById('employee-observations').value,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    };
-
-    // Verificar se é edição ou novo funcionário
-    const existingIndex = this.employees.findIndex(e => e.registration === employeeData.registration);
-    
-    if (existingIndex >= 0) {
-      employeeData.id = this.employees[existingIndex].id;
-      employeeData.createdAt = this.employees[existingIndex].createdAt;
-      this.employees[existingIndex] = employeeData;
-    } else {
-      this.employees.push(employeeData);
-    }
-
-    this.saveEmployees();
-    this.loadEmployees();
-    this.closeModal(document.getElementById('employee-modal'));
-    this.showToast('Funcionário salvo com sucesso!', 'success');
-  }
-
-  editEmployee(id) {
-    const employee = this.employees.find(e => e.id === id);
-    if (employee) {
-      this.openEmployeeModal(employee);
-    }
-  }
-
-  deleteEmployee(id) {
-    if (confirm('Tem certeza que deseja excluir este funcionário?')) {
-      this.employees = this.employees.filter(e => e.id !== id);
-      this.saveEmployees();
-      this.loadEmployees();
-      this.showToast('Funcionário excluído com sucesso!', 'success');
-    }
-  }
-
-  searchEmployees(query) {
-    if (!query.trim()) {
-      this.loadEmployees();
-      return;
-    }
-    
-    const filteredEmployees = this.employees.filter(employee => 
-      employee.name.toLowerCase().includes(query.toLowerCase()) ||
-      employee.registration.toLowerCase().includes(query.toLowerCase()) ||
-      employee.email.toLowerCase().includes(query.toLowerCase()) ||
-      employee.cpf.includes(query) ||
-      employee.phone.includes(query) ||
-      this.getPositionName(employee.position).toLowerCase().includes(query.toLowerCase()) ||
-      this.getDepartmentName(employee.department).toLowerCase().includes(query.toLowerCase())
-    );
-    
-    this.displayFilteredEmployees(filteredEmployees);
-  }
-
-  displayFilteredEmployees(employees) {
-    const tbody = document.getElementById('employees-table-body');
-    tbody.innerHTML = '';
-    
-    employees.forEach(employee => {
-      const row = this.createEmployeeRow(employee);
-      tbody.appendChild(row);
-    });
-  }
-
-  selectAllEmployees(checked) {
-    const checkboxes = document.querySelectorAll('.employee-checkbox');
-    checkboxes.forEach(checkbox => {
-      checkbox.checked = checked;
-    });
-  }
-
-  exportData() {
-    const selectedIds = Array.from(document.querySelectorAll('.employee-checkbox:checked'))
-      .map(cb => parseInt(cb.dataset.id));
-    
-    const dataToExport = selectedIds.length > 0 
-      ? this.employees.filter(e => selectedIds.includes(e.id))
-      : this.employees;
-    
-    const data = {
-      employees: dataToExport,
-      exportDate: new Date().toISOString(),
-      totalEmployees: dataToExport.length
-    };
-    
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `funcionarios_${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-    this.showToast(`${dataToExport.length} funcionário(s) exportado(s) com sucesso!`, 'success');
-  }
-
-  saveEmployees() {
-    localStorage.setItem('employees', JSON.stringify(this.employees));
-  }
-
-  showToast(message, type = 'success') {
-    const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toast-message');
-    
-    toastMessage.textContent = message;
-    toast.className = `toast ${type}`;
-    toast.classList.remove('hidden');
-    
-    setTimeout(() => {
-      toast.classList.add('hidden');
-    }, 3000);
-  }
-}
-
-// Adicionar estilos para status badges se não existirem
-if (!document.querySelector('style[data-employee-styles]')) {
-  const style = document.createElement('style');
-  style.setAttribute('data-employee-styles', 'true');
-  style.textContent = `
-    .status-badge {
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 500;
-    }
-    
-    .status-success {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    
-    .status-warning {
-      background-color: #fff3cd;
-      color: #856404;
-    }
-    
-    .status-danger {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-  `;
-  document.head.appendChild(style);
-}
-
-// Inicializar quando a página carregar
-let funcionarioManager;
 document.addEventListener('DOMContentLoaded', () => {
-  funcionarioManager = new FuncionarioManager();
+
+    // --- Seleção de elementos ---
+    const newEmployeeBtn = document.getElementById('new-employee-btn');
+    const employeeModal = document.getElementById('employee-modal');
+    const closeModalBtns = document.querySelectorAll('.close-modal, #cancel-btn');
+    const employeeForm = document.getElementById('employee-form');
+    const cepInput = document.getElementById('employee-cep');
+    const saveButton = document.getElementById('save-btn');
+    const modalTitle = document.getElementById('modal-title');
+
+    const confirmationModal = document.getElementById('confirmation-modal');
+    const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
+    const confirmeDeleteBtn = document.getElementById('confirm-delete-btn');
+
+    const successModal = document.getElementById('success-modal');
+    const successMessageText = document.getElementById('success-message-text');
+
+    let employeeIdToDelete = null;
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    let editingEmployeeId = null;
+    
+    const tableBody = document.getElementById('employees-table-body');
+
+    // --- Funções ---
+
+    const openNewEmployeeModal = () => {
+        employeeForm.reset();
+        modalTitle.textContent = 'Novo Funcionário';
+        saveButton.disabled = false; 
+        editingEmployeeId = null;
+        saveButton.textContent = 'Salvar';
+        employeeModal.classList.add('show');
+    };
+
+    const showSuccessModal = (message) => {
+        employeeModal.classList.remove('show');
+        confirmationModal.classList.remove('show');
+        successMessageText.textContent = message;
+        successModal.classList.add('show');
+        setTimeout(() => {
+            successModal.classList.remove('show');
+            loadEmployees();
+        }, 2000);
+    };
+
+    const closeModal = () => {
+        employeeModal.classList.remove('show');
+    };
+
+    const openConfirmationModal = (id) => {
+        employeeIdToDelete = id;
+        confirmationModal.classList.add('show');
+    };
+
+    const closeConfirmationModal = () => {
+        employeeIdToDelete = null;
+        confirmationModal.classList.remove('show');
+    };
+
+    const openEditModal = async (id) => {
+        employeeForm.reset();
+        modalTitle.textContent = 'Carregando dados...';
+        saveButton.disabled = true;
+
+        const apiUrl = `http://127.0.0.1:8000/api/funcionarios/${id}`;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'GET',
+                headers: {'Accept': 'application/json'}
+            });
+
+            if (!response.ok) throw new Error('Falha ao buscar dados do funcionário.');
+
+            const employee = await response.json();
+
+            document.getElementById('employee-registration').value = employee.matricula || '';
+            document.getElementById('employee-name').value = employee.nome || '';
+            document.getElementById('employee-cpf').value = employee.cpf || '';
+            document.getElementById('employee-rg').value = employee.rg || '';
+            document.getElementById('employee-birth-date').value = employee.data_nascimento || '';
+            document.getElementById('employee-phone').value = employee.telefone || '';
+            document.getElementById('employee-email').value = employee.email || '';
+            
+            if (employee.endereco) {
+                document.getElementById('employee-cep').value = employee.endereco.cep || '';
+                document.getElementById('employee-address').value = employee.endereco.logradouro || '';
+                document.getElementById('employee-number').value = employee.endereco.numero || '';
+                document.getElementById('employee-neighborhood').value = employee.endereco.bairro || '';
+                document.getElementById('employee-city').value = employee.endereco.cidade || '';
+            }
+
+            document.getElementById('employee-position').value = employee.cargo || '';
+            document.getElementById('employee-department').value = employee.departamento || '';
+            document.getElementById('employee-hire-date').value = employee.data_admissao || '';
+            document.getElementById('employee-salary').value = employee.salario || '';
+            document.getElementById('employee-workload').value = employee.carga_horaria || '40h';
+            document.getElementById('employee-status').value = employee.status || 'ativo';
+            document.getElementById('employee-observations').value = employee.observacoes || '';
+
+            editingEmployeeId = id;
+            modalTitle.textContent = 'Editar Funcionário';
+            saveButton.disabled = false;
+            employeeModal.classList.add('show');
+
+        } catch (error) {
+            console.error('Erro ao abrir o modal de edição: ', error);
+            alert(error.message);
+        }
+    };
+
+    const deleteEmployee = async () => {
+        if (!employeeIdToDelete) return;
+
+        confirmeDeleteBtn.disabled = true;
+        confirmeDeleteBtn.textContent = 'Excluindo...';
+
+        const apiUrl = `http://127.0.0.1:8000/api/funcionarios/${employeeIdToDelete}`;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'DELETE',
+                headers: {'Accept': 'application/json'}
+            });
+
+            if (!response.ok && response.status !== 204) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Falha ao excluir funcionário.');
+            }
+
+            showSuccessModal('Funcionário excluído com sucesso!');
+
+        } catch (error) {
+            console.error('Erro ao excluir: ', error);
+            alert(`Erro: ${error.message}`);
+        } finally {
+            confirmeDeleteBtn.disabled = false;
+            confirmeDeleteBtn.textContent = 'Excluir';
+        }
+    };
+
+    const fetchAddressByCep = async (cep) => {
+        const cleanCep = cep.replace(/\D/g, '');
+        if (cleanCep.length !== 8) return; 
+
+        try {
+            const response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
+            if (!response.ok) throw new Error('Não foi possível consultar o CEP.');
+            
+            const addressData = await response.json();
+            if (addressData.erro) {
+                alert('CEP não localizado. Por favor, preencha o endereço manualmente.');
+                return;
+            }
+
+            document.getElementById('employee-address').value = addressData.logradouro;
+            document.getElementById('employee-neighborhood').value = addressData.bairro;
+            document.getElementById('employee-city').value = addressData.localidade;
+            document.getElementById('employee-number').focus();
+
+        } catch (error) {
+            console.error('Erro ao buscar CEP: ', error);
+            alert(error.message);
+        }
+    };
+
+    const loadEmployees = async () => {
+        tableBody.innerHTML = '<tr><td colspan="10" style="text-align: center;">Carregando...</td></tr>';
+
+        const apiUrl = `http://127.0.0.1:8000/api/funcionarios?page=${currentPage}&perPage=${itemsPerPage}`;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'GET',
+                headers: {'Accept': 'application/json'}
+            });
+
+            if (!response.ok) {
+                throw new Error(`Falha ao carregar funcionários: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            const employees = result.data;
+            const totalItems = result.total;
+
+            tableBody.innerHTML = '';
+
+            if (employees.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="10" style="text-align: center;">Nenhum funcionário cadastrado.</td></tr>';
+                renderPagination(totalItems); 
+                return;
+            }
+
+            employees.forEach(employee => {
+                const tr = document.createElement('tr');
+
+                tr.innerHTML = `
+                    <td class="checkbox-column">
+                        <input type="checkbox" data-id="${employee.matricula}" />
+                    </td>
+                    <td>${employee.matricula}</td>
+                    <td>${employee.nome}</td>
+                    <td>${employee.cargo || '-'}</td>
+                    <td>${employee.departamento || '-'}</td>
+                    <td>${employee.telefone || '-'}</td>
+                    <td>${employee.email}</td>
+                    <td>R$ ${parseFloat(employee.salario || 0).toFixed(2)}</td>
+                    <td><span class="status-badge ${employee.status}">${employee.status === 'ativo' ? 'Ativo' : 'Inativo'}</span></td>
+                    <td>
+                        <button class="btn-icon btn-edit" data-id="${employee.matricula}" title="Editar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </button>
+                        <button class="btn-icon btn-delete" data-id="${employee.matricula}" title="Excluir">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                            </svg>
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+
+            renderPagination(totalItems);
+
+        } catch (error) {
+            console.error('Erro ao carregar funcionários:', error);
+            tableBody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: red;">${error.message}</td></tr>`;
+        }
+    };
+
+    const renderPagination = (totalItems) => {
+        const paginationContainer = document.getElementById('pagination-controls');
+        if (!paginationContainer) return;
+
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        paginationContainer.innerHTML = '';
+
+        const prevButton = document.createElement('button');
+        prevButton.textContent = '« Anterior';
+        prevButton.className = 'btn btn-secondary';
+        prevButton.disabled = (currentPage === 1);
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                loadEmployees();
+            }
+        });
+        paginationContainer.appendChild(prevButton);
+
+        const pageInfo = document.createElement('span');
+        pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+        pageInfo.style.margin = '0 10px';
+        paginationContainer.appendChild(pageInfo);
+
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'Próximo »';
+        nextButton.className = 'btn btn-secondary';
+        nextButton.disabled = (currentPage === totalPages);
+        nextButton.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                loadEmployees();
+            }
+        });
+        paginationContainer.appendChild(nextButton);
+    };
+
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+        saveButton.disabled = true;
+        
+        const originalButtonText = editingEmployeeId ? 'Atualizar' : 'Salvar';
+        saveButton.textContent = editingEmployeeId ? 'Atualizando...' : 'Salvando...';
+
+        const formData = new FormData(employeeForm);
+        const employeeData = Object.fromEntries(formData.entries());
+
+        let apiUrl = 'http://127.0.0.1:8000/api/funcionarios';
+        let httpMethod = 'POST';
+
+        if (editingEmployeeId) {
+            apiUrl = `http://127.0.0.1:8000/api/funcionarios/${editingEmployeeId}`;
+            httpMethod = 'PUT';
+        }
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: httpMethod,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(employeeData),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                let errorMessage = result.message || 'Ocorreu um erro desconhecido.';
+                if(result.errors) {
+                    errorMessage = 'Por favor, corrija os erros:\n'; 
+                    for (const field in result.errors) {
+                        errorMessage += `- ${result.errors[field].join(', ')}\n`;
+                    }
+                }
+                throw new Error(errorMessage);
+            }
+
+            const successMessage = editingEmployeeId ? 'Funcionário atualizado com sucesso!' : 'Funcionário cadastrado com sucesso!';
+            showSuccessModal(successMessage);
+            closeModal();
+
+        } catch (error) {
+            console.error('Falha ao salvar funcionário: ', error);
+            alert(`Erro: ${error.message}`);
+        } finally {
+            saveButton.disabled = false;
+            saveButton.textContent = originalButtonText; 
+            if (httpMethod === 'PUT') {
+                editingEmployeeId = null;
+            }
+        }
+    };
+
+    tableBody.addEventListener('click', (event) => {
+        const deleteButton = event.target.closest('.btn-delete');
+        if (deleteButton) {
+            const id = deleteButton.dataset.id;
+            openConfirmationModal(id);
+        }
+
+        const editButton = event.target.closest('.btn-edit');
+        if (editButton) {
+            const id = editButton.dataset.id;
+            openEditModal(id);
+        }
+    });
+
+    // --- Event Listeners ---
+    newEmployeeBtn.addEventListener('click', openNewEmployeeModal);
+    closeModalBtns.forEach(btn => btn.addEventListener('click', closeModal));
+    employeeForm.addEventListener('submit', handleFormSubmit);
+    cepInput.addEventListener('blur', (event) => {
+        fetchAddressByCep(event.target.value);
+    });
+    employeeModal.addEventListener('click', (event) => {
+        if (event.target === employeeModal) closeModal();
+    });
+    cancelDeleteBtn.addEventListener('click', closeConfirmationModal);
+    confirmeDeleteBtn.addEventListener('click', deleteEmployee);
+    confirmationModal.querySelector('.close-modal').addEventListener('click', closeConfirmationModal);
+
+    loadEmployees();
 });

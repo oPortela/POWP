@@ -352,8 +352,10 @@
   .modal-content {
     background-color: var(--background-white);
     border-radius: var(--border-radius);
-    width: 500px;
-    max-width: 90%;
+    width: 800px;
+    max-width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
     box-shadow: var(--shadow-lg);
     animation: slideIn 0.3s;
   }
@@ -398,12 +400,15 @@
     font-size: 0.9rem;
   }
   
-  .form-group input {
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
     width: 100%;
     padding: var(--spacing-2);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
   }
 
   .form-group-row {
@@ -426,9 +431,37 @@
     min-width: 100px;
   }
   
-  .form-group input:focus {
+  /* Estilos para campos condicionais */
+  #campos-pessoa-fisica,
+  #campos-pessoa-juridica {
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Melhorar espaçamento do textarea */
+  .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
     outline: none;
     border-color: var(--primary-light);
+  }
+  
+  .modal-body h4 {
+    margin-top: var(--spacing-4);
+    margin-bottom: var(--spacing-3);
+    color: var(--primary-color);
+    font-size: 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: var(--spacing-2);
+  }
+  
+  .modal-body h4:first-child {
+    margin-top: 0;
   }
   
   .form-group.actions {
@@ -645,6 +678,19 @@
     
     .sidebar:hover .sidebar-text {
       opacity: 0;
+    }
+    
+    .modal-content {
+      width: 95%;
+      max-height: 85vh;
+    }
+    
+    .form-group-row {
+      flex-direction: column;
+    }
+    
+    .form-group-row .form-group {
+      min-width: 100%;
     }
   }
 /* Subm
