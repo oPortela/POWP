@@ -1,7 +1,8 @@
 class OrderManager {
     constructor() {
       this.currentOrder = {
-        number: this.generateOrderNumber(),
+        id: null, // ID do pedido (para edição)
+        number: null, // Será gerado pela API
         date: new Date().toISOString().split('T')[0],
         customer: {
           code: '',
@@ -19,8 +20,31 @@ class OrderManager {
           method: '58',
           term: '102',
           installments: []
+        },
+        totals: {
+          subtotal: 0,
+          discount: 0,
+          freightInsurance: 0,
+          total: 0
         }
       };
+      
+      // Inicializar número do pedido
+      this.initializeOrderNumber();
+    }
+  
+    async initializeOrderNumber() {
+      try {
+        // Tentar buscar da API
+        if (typeof gerarNumeroPedido === 'function') {
+          this.currentOrder.number = await gerarNumeroPedido();
+        } else {
+          this.currentOrder.number = this.generateOrderNumber();
+        }
+      } catch (error) {
+        console.warn('Usando número de pedido local');
+        this.currentOrder.number = this.generateOrderNumber();
+      }
     }
   
     generateOrderNumber() {
@@ -156,15 +180,125 @@ class OrderManager {
       return errors;
     }
   
-    saveOrder() {
+    async saveOrder() {
       const errors = this.validateOrder();
       if (errors.length > 0) {
         throw new Error(errors.join('\n'));
       }
   
-      // Here you would typically send the order to a backend server
-      console.log('Saving order:', this.currentOrder);
-      return true;
+      try {
+        // Verificar se as funções da API estão disponíveis
+        if (typeof salvarPedidoVenda === 'function') {
+          // Formatar pedido para API
+          const pedidoFormatado = typeof formatarPedidoParaAPI === 'function' 
+            ? formatarPedidoParaAPI(this.currentOrder)
+            : this.currentOrder;
+          
+          // Salvar via API
+          const result = this.currentOrder.id
+            ? await atualizarPedidoVenda(this.currentOrder.id, pedidoFormatado)
+            : await salvarPedidoVenda(pedidoFormatado);
+          
+          if (result.success) {
+            console.log('✅ Pedido salvo na API:', result.data);
+            this.currentOrder.id = result.data.id || result.data.codvenda;
+            return result;
+          } else {
+            throw new Error(result.message || 'Erro ao salvar pedido');
+          }
+        } else {
+          // Fallback: salvar localmente
+          console.log('⚠️ API não disponível. Salvando localmente:', this.currentOrder);
+          this.saveToLocalStorage();
+          return {
+            success: true,
+            message: 'Pedido salvo localmente (API não disponível)'
+          };
+        }
+      } catch (error) {
+        console.error('❌ Erro ao salvar pedido:', error);
+        // Tentar salvar localmente como backup
+        this.saveToLocalStorage();
+        throw error;
+      }
+    }
+    
+    saveToLocalStorage() {
+      try {
+        const pedidos = JSON.parse(localStorage.getItem('pedidos_offline') || '[]');
+        pedidos.push({
+          ...this.currentOrder,
+          savedAt: new Date().toISOString(),
+          synced: false
+        });
+        localStorage.setItem('pedidos_offline', JSON.stringify(pedidos));
+        console.log('💾 Pedido salvo no localStorage');
+      } catch (error) {
+        console.error('Erro ao salvar no localStorage:', error);
+      }
+    }
+    
+    async loadOrder(id) {
+      try {
+        if (typeof buscarPedidoPorId === 'function') {
+          const pedido = await buscarPedidoPorId(id);
+          if (pedido) {
+            this.currentOrder = this.mapApiToPedido(pedido);
+            return true;
+          }
+        }
+        return false;
+      } catch (error) {
+        console.error('Erro ao carregar pedido:', error);
+        return false;
+      }
+    }
+    
+    mapApiToPedido(apiData) {
+      return {
+        id: apiData.id || apiData.codvenda,
+        number: apiData.numero_pedido || apiData.numero,
+        date: apiData.data_venda || apiData.data,
+        customer: {
+          code: apiData.cliente_id || apiData.codcliente,
+          name: apiData.cliente?.nome || apiData.nome_cliente,
+          document: apiData.cliente?.cpf_cnpj || apiData.documento
+        },
+        seller: apiData.vendedor_id || apiData.codvendedor,
+        freight: apiData.tipo_frete || 'por_conta',
+        carrier: apiData.transportadora_id || apiData.codtransportadora,
+        freightValue: parseFloat(apiData.valor_frete || 0),
+        insuranceValue: parseFloat(apiData.valor_seguro || 0),
+        items: (apiData.itens || apiData.items || []).map(item => ({
+          product: {
+            id: item.produto_id || item.codproduto,
+            code: item.produto?.codigo || item.codigo,
+            name: item.produto?.nome || item.nome_produto,
+            price: parseFloat(item.valor_unitario || item.preco)
+          },
+          quantity: parseFloat(item.quantidade),
+          unitPrice: parseFloat(item.valor_unitario),
+          discountPercent: parseFloat(item.percentual_desconto || 0),
+          discountValue: parseFloat(item.valor_desconto || 0),
+          total: parseFloat(item.valor_total)
+        })),
+        observations: apiData.observacoes || '',
+        payment: {
+          method: apiData.forma_pagamento_id || apiData.codformapagamento,
+          term: apiData.condicao_pagamento_id || apiData.codcondicao,
+          installments: (apiData.parcelas || []).map(parcela => ({
+            number: parcela.numero,
+            date: parcela.data_vencimento,
+            value: parseFloat(parcela.valor)
+          }))
+        },
+        totals: {
+          subtotal: parseFloat(apiData.totais?.subtotal || apiData.subtotal || 0),
+          discount: parseFloat(apiData.totais?.desconto || apiData.desconto || 0),
+          freightInsurance: parseFloat(apiData.totais?.frete_seguro || 0),
+          total: parseFloat(apiData.totais?.total || apiData.valor_total || 0)
+        }
+      };
     }
   }
   

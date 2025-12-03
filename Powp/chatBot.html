@@ -105,25 +105,50 @@
             <div class="chat-container">
                 <!-- Suggested Questions Sidebar -->
                 <div class="suggestions-sidebar">
-                    <h3>Perguntas sugeridas:</h3>
+                    <h3>💡 Perguntas Sugeridas</h3>
                     <div class="suggestions-grid">
-                        <button class="suggestion-btn" data-question="Qual foi o faturamento do mês passado?">
-                            Qual foi o faturamento do mês passado?
+                        <button class="suggestion-btn" data-question="Qual foi o faturamento do mês atual?">
+                            📊 Faturamento do mês
                         </button>
-                        <button class="suggestion-btn" data-question="Quantos fornecedores estão cadastrados?">
-                            Quantos fornecedores estão cadastrados?
+                        <button class="suggestion-btn" data-question="Quantos clientes estão ativos?">
+                            👥 Clientes ativos
                         </button>
                         <button class="suggestion-btn" data-question="Quais produtos estão com estoque baixo?">
-                            Quais produtos estão com estoque baixo?
+                            ⚠️ Estoque crítico
                         </button>
                         <button class="suggestion-btn" data-question="Mostrar vendas da última semana">
-                            Mostrar vendas da última semana
+                            📈 Vendas da semana
                         </button>
-                        <button class="suggestion-btn" data-question="Qual fornecedor tem mais produtos cadastrados?">
-                            Qual fornecedor tem mais produtos cadastrados?
+                        <button class="suggestion-btn" data-question="Qual a situação financeira?">
+                            💰 Situação financeira
+                        </button>
+                        <button class="suggestion-btn" data-question="Lista de fornecedores cadastrados">
+                            🏢 Fornecedores
                         </button>
                         <button class="suggestion-btn" data-question="Relatório de clientes inadimplentes">
-                            Relatório de clientes inadimplentes
+                            💳 Inadimplentes
+                        </button>
+                        <button class="suggestion-btn" data-question="Valor total em estoque">
+                            📦 Valor do estoque
+                        </button>
+                        <button class="suggestion-btn" data-question="Quais dashboards estão disponíveis?">
+                            📊 Dashboards
+                        </button>
+                        <button class="suggestion-btn" data-question="Como você pode me ajudar?">
+                            ❓ Ajuda
+                        </button>
+                    </div>
+                    
+                    <div class="quick-actions">
+                        <h3>⚡ Ações Rápidas</h3>
+                        <button class="action-btn" onclick="window.location.href='dashboard.html'">
+                            📊 Ver Dashboard
+                        </button>
+                        <button class="action-btn" onclick="window.location.href='dashboardIA.html'">
+                            🤖 IA Insights
+                        </button>
+                        <button class="action-btn" onclick="window.location.href='cadastroCliente.html'">
+                            👤 Novo Cliente
                         </button>
                     </div>
                 </div>
@@ -133,10 +158,18 @@
                     <!-- Messages -->
                     <div class="messages-container" id="messagesContainer">
                         <div class="message ai-message">
-                            <div class="ai-avatar">IA</div>
+                            <div class="ai-avatar">🤖</div>
                             <div class="message-content">
                                 <div class="message-bubble ai-bubble">
-                                    <p>Olá! Eu sou seu assistente IA para o ERP. Como posso ajudá-lo hoje? Posso fornecer informações sobre fornecedores, vendas, estoque, relatórios financeiros e muito mais!</p>
+                                    <p><strong>Olá! Sou seu Assistente IA do Powp ERP! 👋</strong></p>
+                                    <p>Posso ajudá-lo com:</p>
+                                    <p>📊 Análise de vendas e faturamento<br>
+                                    👥 Informações sobre clientes<br>
+                                    🏢 Dados de fornecedores<br>
+                                    📦 Gestão de estoque<br>
+                                    💰 Situação financeira<br>
+                                    📈 Relatórios e insights</p>
+                                    <p><em>Faça uma pergunta ou escolha uma sugestão ao lado!</em></p>
                                 </div>
                                 <div class="message-time" id="initialTime"></div>
                             </div>

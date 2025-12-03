@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard IA - Powp ERP</title>
     <link rel="stylesheet" href="css/dashboardIA.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <link rel="shortcut icon" href="assets/imagens/favicon-16x16.png" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -101,23 +102,12 @@
         <!-- Main Content -->
         <div class="main-content">
             <div class="header">
-                <div class="header-content">
-                    <div class="header-title">
-                        <h1>Inteligência Artificial</h1>
-                        <p>Insights e previsões geradas por IA para decisões estratégicas</p>
-                    </div>
-                    <div class="ai-status">
-                        <div class="ai-indicator">
-                            <div class="pulse"></div>
-                            <span>IA Ativa</span>
-                        </div>
-                        <button class="btn-refresh" id="refresh-insights">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                                <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"></path>
-                            </svg>
-                            Atualizar
-                        </button>
-                    </div>
+                <div class="tabs">
+                    <button class="tab"><a href="dashboard.html">Painel de Vendas</a></button>
+                    <button class="tab"><a href="dashboardFinanceiro.html">Painel Financeiro</a></button>
+                    <button class="tab"><a href="dashboardEstoque.html">Painel de Estoque</a></button>
+                    <button class="tab"><a href="dashboardClientes.html">Análise de Clientes</a></button>
+                    <button class="tab active">IA Insights</button>
                 </div>
             </div>
 

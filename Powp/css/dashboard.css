@@ -1,4 +1,5 @@
 @charset 'UTF-8';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
     --primary-color: #004d40;
@@ -37,6 +38,7 @@
     padding: 0;
     height: 100vh;
     overflow: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .sidebar {
@@ -150,6 +152,7 @@
     font-size: 16px;
     font-weight: 500;
     color: #777;
+    font-family: 'Inter', sans-serif;
 }
 
 .tab a{
