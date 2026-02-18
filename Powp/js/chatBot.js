@@ -19,25 +19,25 @@ class ERPChatbot {
             modulos: ["Vendas", "Financeiro", "Estoque", "Clientes", "Fornecedores", "Produtos"],
             dadosDisponiveis: {
                 clientes: {
-                    total: 1847,
-                    ativos: 1523,
-                    inativos: 324,
-                    ticketMedio: 1245.00
+                    total: 15,
+                    ativos: 4,
+                    inativos: 11,
+                    ticketMedio: 625.70
                 },
                 fornecedores: {
                     total: 7,
                     principais: ["Mondelez Brasil LTDA", "Microsoft LTDS", "Unilever LTDA", "Coca-cola LTDA"]
                 },
                 produtos: {
-                    total: 1247,
+                    total: 55,
                     estoqueCritico: 23,
                     zerados: 8,
-                    valorTotal: 487320.00
+                    valorTotal: 14356.00
                 },
                 vendas: {
-                    mesAtual: 2847650.00,
-                    mesAnterior: 2476217.39,
-                    crescimento: 15,
+                    mesAtual: 14985.00,
+                    mesAnterior: 12471.39,
+                    crescimento: 25.2,
                     ticketMedio: 820.00
                 },
                 financeiro: {
@@ -334,9 +334,9 @@ Sua base de clientes está saudável e em crescimento!`;
             return `💳 **Relatório de Inadimplência**
 
 ⚠️ Clientes em atraso: 23
-💰 Valor total em aberto: R$ 156.780,00
+💰 Valor total em aberto: R$ 1.780,00
 📅 Maior atraso: 45 dias
-🏢 Cliente com maior débito: Empresa XYZ (R$ 25.430,00)
+🏢 Cliente com maior débito: Empresa XYZ (R$ 430,00)
 
 **Recomendação:** Entre em contato com os clientes em atraso superior a 30 dias para negociação.`;
         }
@@ -361,11 +361,11 @@ Todos com cadastros atualizados e em dia! ✅`;
         if (message.includes('mais produtos') || message.includes('maior')) {
             return `🏆 **Ranking de Fornecedores por Produtos**
 
-1. 🥇 Unilever LTDA - 245 produtos
-2. 🥈 Procter & Gamble Brasil LTDA - 198 produtos
-3. 🥉 Coca-cola LTDA - 156 produtos
-4. Microsoft LTDS - 142 produtos
-5. Mondelez Brasil LTDA - 128 produtos
+1. 🥇 Unilever LTDA - 10 produtos
+2. 🥈 Procter & Gamble Brasil LTDA - 32 produtos
+3. 🥉 Coca-cola LTDA - 5 produtos
+4. Microsoft LTDS - 2 produtos
+5. Mondelez Brasil LTDA - 14 produtos
 
 A Unilever lidera com folga!`;
         }
@@ -385,7 +385,7 @@ A Unilever lidera com folga!`;
 • Monitor 24" - 5 unidades
 
 🟡 **Em Alerta (${dados.estoqueCritico} produtos):**
-• Webcam HD - 12 unidades (mín: 25)
+• Webcam HD - 10 unidades (mín: 25)
 • Headset Bluetooth - 18 unidades (mín: 30)
 • SSD 480GB - 15 unidades (mín: 40)
 

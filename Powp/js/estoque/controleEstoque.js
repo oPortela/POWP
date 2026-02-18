@@ -4,9 +4,9 @@ class EstoqueManager {
     this.products = JSON.parse(localStorage.getItem('products')) || [];
     this.movements = JSON.parse(localStorage.getItem('movements')) || [];
     this.suppliers = JSON.parse(localStorage.getItem('suppliers')) || [
-      { id: 1, name: 'Fornecedor A' },
-      { id: 2, name: 'Fornecedor B' },
-      { id: 3, name: 'Fornecedor C' }
+      { id: 1, name: 'Sandet' },
+      { id: 2, name: 'Coca Cola LTDA' },
+      { id: 3, name: 'Bic do Brasil' }
     ];
     
     this.init();
@@ -25,39 +25,39 @@ class EstoqueManager {
       const sampleProducts = [
         {
           id: 1,
-          code: 'PROD001',
-          name: 'Smartphone Samsung Galaxy',
-          category: 'eletronicos',
+          code: '1',
+          name: 'Açucar refinado 1kg Cristal',
+          category: 'casa',
           supplier: 'Fornecedor A',
           quantity: 15,
           minQuantity: 5,
-          costPrice: 800.00,
-          salePrice: 1200.00,
-          description: 'Smartphone Android com 128GB'
+          costPrice: .50,
+          salePrice: 5.90,
+          description: 'Açucar refinado de alta qualidade'
         },
         {
           id: 2,
-          code: 'PROD002',
-          name: 'Camiseta Polo',
-          category: 'roupas',
+          code: '2',
+          name: 'Arroz branco tipo 1 5kg',
+          category: 'casa',
           supplier: 'Fornecedor B',
           quantity: 3,
           minQuantity: 10,
           costPrice: 25.00,
           salePrice: 45.00,
-          description: 'Camiseta polo 100% algodão'
+          description: 'Arroz branco tipo 1 de alta qualidade'
         },
         {
           id: 3,
-          code: 'PROD003',
-          name: 'Mesa de Jantar',
+          code: '3',
+          name: 'Sal de Parrilla Grosso',
           category: 'casa',
           supplier: 'Fornecedor C',
           quantity: 8,
           minQuantity: 3,
-          costPrice: 300.00,
-          salePrice: 500.00,
-          description: 'Mesa de jantar para 6 pessoas'
+          costPrice: 15.00,
+          salePrice: 20.00,
+          description: 'Sal de parrilla grosso para churrasco'
         }
       ];
       
